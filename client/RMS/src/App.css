@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    box-sizing: border-box;
+}
+p,h1,h2,h3,h4,h5,h6,div{
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    /* --primary-blue: rgb(32, 32, 251); */
+    --blurish-white: #e2e8f0;
+    --blue-gray-1: #475569;
+    --blue-gray-2: #1e293b;
+    --blue-gray-3: #1b2d70;
+}
+.authInput{
+    width: 100%;
+    border: 1px solid #232323;
+    background-color: transparent;
+    margin-bottom: 20px;
+    height: 40px;
+    padding: 10px;
+}
+aside li{
+    cursor: pointer;
+    /* border-radius: 0px 10px 10px 0 ; */
+    transition: transform 1s;
+}
+aside li:hover{
+    transform: translateX(10%);
+}
+.authForm{
+    /* border: 1px solid #232323; */
+    width: 70%;
+    background-color: #e2e8f0bb;
+    border-radius: 0px 10px 0px 10px;
+    padding: 50px;
+}
+.studentModalForm{
+    width: 30%;
+}
+.authForm.authSignUp{
+    padding: 30px;
+}
+
+.studentListHeader{
+    /* font-size: 0.7rem; */
+    grid-template-columns: .7fr 1fr 1fr 1.1fr 1fr .3fr;
+    white-space: nowrap;
+    justify-content: left;
+    border-bottom: 1px solid rgba(225, 225, 225, 0.8);
+    font-weight: bold;
+}
+.studentListContent{
+    grid-template-columns: .7fr 1fr 1fr 1.1fr 1fr .3fr;
+    border-bottom: 1px solid rgba(225, 225, 225, 0.8);
+    cursor: pointer;
+}
+.listData {
+    /* text-transform: capitalize; */
+    border: 1px solid black;
+    padding: 5px;
+}
+.studentListContent .listData:last-child{
+    background-color: #1b2d70;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+}
+.modal-wrapper{
+    background-color: rgba(0, 0, 0, 0.782);
+}

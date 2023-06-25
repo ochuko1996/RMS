@@ -1,0 +1,477 @@
+[
+    {
+        "code": "GNS 111",
+        "name": "citizenship education",
+        "unit": 2
+    },
+    {
+        "code": "GNS 101",
+        "name": "use of english 1",
+        "unit": 2
+    },
+    {
+        "code": "MAC 111",
+        "name": "english for mass communication 1",
+        "unit": 2
+    },
+    {
+        "code": "MAC 112",
+        "name": "foreign language",
+        "unit": 2
+    },
+    {
+        "code": "MAC 113",
+        "name": "basic computer application for mass media 1",
+        "unit": 3
+    },
+    {
+        "code": "MAC 114",
+        "name": "introduction to mass communication",
+        "unit": 3
+    },
+    {
+        "code": "MAC 115",
+        "name": "introduction to news reporting & writing",
+        "unit": 3
+    },
+    {
+        "code": "MAC 116",
+        "name": "indegenious language",
+        "unit": 2
+    },
+    {
+        "code": "MAC 117",
+        "name": "introduction to broadcasting",
+        "unit": 2
+    },
+    {
+        "code": "MKT 118",
+        "name": "fundamentals of marketing",
+        "unit": 2
+    },
+    {
+        "code": "GNS 102",
+        "name": "communcation in english 1",
+        "unit": 2
+    },
+    {
+        "code": "GNS 121",
+        "name": "citizenship education",
+        "unit": 2
+    },
+    {
+        "code": "MAC 121",
+        "name": "english for mass media 11",
+        "unit": 2
+    },
+    {
+        "code": "MAC 122",
+        "name": "foreign language",
+        "unit": 2
+    },
+    {
+        "code": "MAC 123 ",
+        "name": "basic computer application for mass media 11",
+        "unit": 3
+    },
+    {
+        "code": "MAC 124",
+        "name": "computer graphics for mass media",
+        "unit": 3
+    },
+    {
+        "code": "MAC 125",
+        "name": "intermediate news reporting and writing",
+        "unit": 3
+    },
+    {
+        "code": "MAC 126",
+        "name": "principles of public relations",
+        "unit": 2
+    },
+    {
+        "code": "MAC 127",
+        "name": "principles of adversting",
+        "unit": 3
+    },
+    {
+        "code": "EED 128",
+        "name": "intoduction of entrepreneurship",
+        "unit": 2
+    },
+    {
+        "code": "GNS 201",
+        "name": "use of english 1",
+        "unit": 2
+    },
+    {
+        "code": "GNS 211",
+        "name": "introduction to sociology/psychology",
+        "unit": 2
+    },
+    {
+        "code": "MAC 211",
+        "name": "english for mass media 111",
+        "unit": 2
+    },
+    {
+        "code": "MAC 212",
+        "name": "introduction to research methods",
+        "unit": 2
+    },
+    {
+        "code": "MAC 213",
+        "name": "copy editing",
+        "unit": 3
+    },
+    {
+        "code": "MAC 214",
+        "name": "feature writing",
+        "unit": 3
+    },
+    {
+        "code": "MAC 215",
+        "name": "mass media & society",
+        "unit": 2
+    },
+    {
+        "code": "MAC 216",
+        "name": "mass communication ethics",
+        "unit": 2
+    },
+    {
+        "code": "MAC 217",
+        "name": "broadcast production 1",
+        "unit": 2
+    },
+    {
+        "code": "EED 218",
+        "name": "practice of entrepreneurship",
+        "unit": 3
+    },
+    {
+        "code": "GNS 202",
+        "name": "communication in english 11",
+        "unit": 2
+    },
+    {
+        "code": "GNS 222",
+        "name": "economics",
+        "unit": 2
+    },
+    {
+        "code": "GNS 225",
+        "name": "geography of nigeria",
+        "unit": 2
+    },
+    {
+        "code": "MAC 223",
+        "name": "newspaper and magazine production",
+        "unit": 3
+    },
+    {
+        "code": "MAC 224",
+        "name": "photographing and photo journalism",
+        "unit": 3
+    },
+    {
+        "code": "MAC 225",
+        "name": "broadcast production 11",
+        "unit": 3
+    },
+    {
+        "code": "MAC 226",
+        "name": "mass communication laws",
+        "unit": 2
+    },
+    {
+        "code": "MAC 227",
+        "name": "investigative & interpertative reporting",
+        "unit": 3
+    },
+    {
+        "code": "MAC 228",
+        "name": "mass media, democracy and governance",
+        "unit": 2
+    },
+    {
+        "code": "COM 111",
+        "name": "introduction to computing",
+        "unit": 4
+    },
+    {
+        "code": "COM 112",
+        "name": "introduction to digital electronics 1",
+        "unit": 4
+    },
+    {
+        "code": "COM 113",
+        "name": "introduction to programming",
+        "unit": 4
+    },
+    {
+        "code": "COM 214",
+        "name": "statistics for computing 1",
+        "unit": 2
+    },
+    {
+        "code": "COM 215",
+        "name": "computer application packages 1",
+        "unit": 4
+    },
+    {
+        "code": "MTH 111",
+        "name": "logic and linear algera",
+        "unit": 2
+    },
+        {
+        "code": "EED 126",
+        "name": "practice of entrepreneurship",
+        "unit": 2
+    },
+    {
+        "code": "COM 121",
+        "name": "programming using C language",
+        "unit": 4
+    },
+    {
+        "code": "COM 122",
+        "name": "introduction to internet",
+        "unit": 3
+    },
+    {
+        "code": "COM 123",
+        "name": "programming language using java 1",
+        "unit": 4
+    },
+    {
+        "code": "COM 124",
+        "name": "data structure and algorithms",
+        "unit": 3
+    },
+    {
+        "code": "COM 125",
+        "name": "introduction to system analysis and design",
+        "unit": 3
+    },
+    {
+        "code": "COM 126",
+        "name": "PC upgrade & maintenance",
+        "unit": 4
+    },
+    {
+        "code": "MTH 211",
+        "name": "calculus 11",
+        "unit": 2
+    },
+    {
+        "code": "GNS 228",
+        "name": "research methods",
+        "unit": 1
+    },
+    {
+        "code": "COM 211",
+        "name": "programming language using java 11",
+        "unit": 4
+    },
+    {
+        "code": "COM 212",
+        "name": "introduction to systems programming",
+        "unit": 2
+    },
+    {
+        "code": "COM 213",
+        "name": "unified modeling languages(UML)",
+        "unit": 4
+    },
+    {
+        "code": "COM 214",
+        "name": "computer systems troubleshooting",
+        "unit": 3
+    },
+    {
+        "code": "COM 215",
+        "name": "computer application packages 11",
+        "unit": 4
+    },
+    {
+        "code": "COM 216",
+        "name": "statistics for computing 11",
+        "unit": 4
+    },
+    {
+        "code": "SIW 217",
+        "name": "siwes",
+        "unit": 4
+    },
+    {
+        "code": "EED 216",
+        "name": "practice of entrepreneurship",
+        "unit": 2
+    },
+    {
+        "code": "MTH 112",
+        "name": "algera and elementary trigonometry",
+        "unit": 3
+    },
+    {
+        "code": "MEC 101",
+        "name": "technical drawing",
+        "unit": 3
+    },
+    {
+        "code": "MEC 113",
+        "name": "basic workshop and technology practice",
+        "unit": 3
+    },
+    {
+        "code": "EEC 115",
+        "name": "electrical engineering science 1",
+        "unit": 3
+    },
+    {
+        "code": "CTE 111",
+        "name": "introduction to computers and information technology",
+        "unit": 3
+    },
+    {
+        "code": "CTE 112",
+        "name": "electrical workshop practice and technology",
+        "unit": 2
+    },
+    {
+        "code": "CTE 113",
+        "name": "computer application packages",
+        "unit": 2
+    },
+    {
+        "code": "CTE 114",
+        "name": "internet and web technologies",
+        "unit": 3
+    },
+    {
+        "code": "CTE 115",
+        "name": "data structures",
+        "unit": 2
+    },
+    {
+        "code": "MTH 211",
+        "name": "calculus",
+        "unit": 1
+    },
+    {
+        "code": "MEC 102",
+        "name": "machines tool technology and practice",
+        "unit": 3
+    },
+    {
+        "code": "EEC 124",
+        "name": "electronics 1",
+        "unit": 3
+    },
+    {
+        "code": "EEC 125",
+        "name": "electrical engineering science 11",
+        "unit": 3
+    },
+    {
+        "code": "CTE 121",
+        "name": "digital computers fundamentals 1",
+        "unit": 3
+    },
+    {
+        "code": "CTE 122",
+        "name": "electrical measurement and instrumentation 1",
+        "unit": 3
+    },
+    {
+        "code": "CTE 123",
+        "name": "computer / electronics maintenance and repairs",
+        "unit": 3
+    },
+    {
+        "code": "CTE 124",
+        "name": "technical report writing",
+        "unit": 2
+    },
+    {
+        "code": "MTH 202",
+        "name": "logic and linear algera",
+        "unit": 2
+    },
+    {
+        "code": "EEC 234",
+        "name": "electronics 11",
+        "unit": 3
+    },
+    {
+        "code": "EEC 239",
+        "name": "electrical circuit theory",
+        "unit": 2
+    },
+    {
+        "code": "CTE 231",
+        "name": "micro computer fundamentals",
+        "unit": 3
+    },
+    {
+        "code": "CTE 232",
+        "name": "computer workshop practice 1",
+        "unit": 3
+    },
+    {
+        "code": "CTE 233",
+        "name": "digital computer fundamentals 11",
+        "unit": 3
+    },
+    {
+        "code": "CTE 234",
+        "name": "computer architecture 1",
+        "unit": 3
+    },
+    {
+        "code": "CTE 235",
+        "name": "electrical measurement and instrumentation 11",
+        "unit": 3
+    },
+    {
+        "code": "EEC 236",
+        "name": "introduction to visual basic programming",
+        "unit": 2
+    },
+    {
+        "code": "MTH 122",
+        "name": "trigonometry and analytical geometry",
+        "unit": 2
+    },
+    {
+        "code": "CTE 241",
+        "name": "introduction to micro-processors and assembly language",
+        "unit": 3
+    },
+    {
+        "code": "CTE 242",
+        "name": "computer workshop practice 11",
+        "unit": 3
+    },
+    {
+        "code": "CTE 243",
+        "name": "operating systems 1",
+        "unit": 2
+    },
+    {
+        "code": "CTE 244",
+        "name": "computer networking",
+        "unit": 3
+    },
+    {
+        "code": "CTE 245",
+        "name": "telecommunication engineering 1",
+        "unit": 2
+    },
+    {
+        "code": "CTE 246",
+        "name": "project",
+        "unit": 6
+    }
+]

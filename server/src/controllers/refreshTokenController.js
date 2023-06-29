@@ -37,7 +37,8 @@ const refreshTokenController = async (req, res)=>{
 function serializeUser(user) {
     return {
         _id: user?._id,
-        email: user?._email,
+        email: user?.email,
+        matricNo: user?.matricNo,
         firstName: user?.firstName
     } 
 }

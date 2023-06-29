@@ -22,17 +22,12 @@ const AssessmentSchema = Schema({
         require: true,
         default: 0
     },
-    gpa: {
-        type: Number,
-        require: true,
-        default: 0,
-    },
     course: {
         type: Schema.Types.String,
         ref: "CourseReg"
     },
-    studentId: {
-        type: Schema.Types.ObjectId,
+    matricNo: {
+        type: Schema.Types.Number,
         ref: "User"
     }
 })

@@ -9,6 +9,12 @@ const register = async (req, res)=>{
     // searching the database for user
     const user = await User.findOne({email})
 
+    // find matric no
+    const checkMatricNo = await User.findOne({matricNo})
+    
+    // check for duplicate matric no
+    if(checkMatricNo) return res.status(StatusCodes.CONFLICT).json(`user with ID: ${checkMatricNo}`)
+    
     // check for existing user
     if(user) return res.status(StatusCodes.CONFLICT).json("user already exist")
 
@@ -75,7 +81,8 @@ function serializeUser(user) {
     return {
         _id: user?._id,
         email: user?.email,
-        firstName: user?.firstName
+        firstName: user?.firstName,
+        matricNo: user?.matricNo,
     }
 }
 module.exports = {

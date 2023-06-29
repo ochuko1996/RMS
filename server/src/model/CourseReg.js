@@ -19,7 +19,7 @@ const CourseRegSchema = new Schema({
         require: true
     },
     createdBy: {
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.Number,
         ref: "User"
     }
 },

@@ -31,8 +31,14 @@ const handleLogout = async (req, res)=>{
  
 
 
-async function serializeUser(email) {
-    return await User.findOne({email}).select({email, firstName}) 
+function serializeUser(user) {
+    return {
+        _id: user?._id,
+        matricNo: user?.matricNo,
+        email: user?.email,
+        firstName: user?.firstName,
+        matricNo: user?.matricNo,
+    }
 }
 module.exports = {
     handleLogout

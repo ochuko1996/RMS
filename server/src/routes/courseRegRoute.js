@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {
     getRegisteredCourse, 
     deleteRegisteredCourse, 
-    getRegisteredCourses, 
+    getRegisteredCourses,  
     registerCourse,
     updateRegisteredCourse
 } = require('../controllers/courseRegController')
@@ -12,7 +12,7 @@ const verifyRoles = require('../middlewares/verifyRoles')
 
 router.route('/')
     .post(registerCourse)
-    .get(verifyRoles(roles.admin), getRegisteredCourses)
+    .get( getRegisteredCourses)
 
 router.route('/id')
     .get(verifyRoles(roles.admin, roles.student), getRegisteredCourse)

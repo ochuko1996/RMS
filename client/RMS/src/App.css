@@ -28,10 +28,14 @@ p,h1,h2,h3,h4,h5,h6,div{
 aside li{
     cursor: pointer;
     /* border-radius: 0px 10px 10px 0 ; */
-    transition: transform 1s;
+    transition: transform .5s;
+    padding: 5px;
 }
 aside li:hover{
-    transform: translateX(10%);
+    /* transform: translateX(10%); */
+    background-color: var(--blurish-white);
+    color: #1b2d70;
+    transform: scale(1.1);
 }
 .authForm{
     /* border: 1px solid #232323; */

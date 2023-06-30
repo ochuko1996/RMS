@@ -5,7 +5,6 @@ import StudentModal from "../molecules/StudentModal"
 import { useSelector } from "react-redux"
 
 function DashboardTemplate({header, aside, footer, children}) {
-  const studentModal = useSelector(({studentModal})=> studentModal.studentModal)
   return (
     <>
       <main className="relative">
@@ -14,7 +13,7 @@ function DashboardTemplate({header, aside, footer, children}) {
             {!aside ? <SideBar/> : aside}
             {children}
         </section>
-        {studentModal && <StudentModal/>}
+   
         {/* {!footer ? <Footer/> : footer} */}
 
       </main>

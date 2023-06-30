@@ -29,8 +29,9 @@ function Auth() {
         console.log(JSON.stringify(response?.data));
         const accessToken = response?.data?.user?.accessToken
         const roles = response?.data?.user?.roles
-        console.log(roles);
-        setAuth({email: formValues.email, password: formValues.password, roles, accessToken})
+        const firstName = response?.data?.user?.user?.firstName
+        console.log(firstName);
+        setAuth({email: formValues.email, password: formValues.password, firstName, roles, accessToken})
         // console.log(auth);
         navigate(from, {replace: true})
         setFormValues(initialData.email= "", initialData.password="")

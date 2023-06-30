@@ -1,56 +1,46 @@
+import { FaSchool, FaComment, FaTypo3 } from "react-icons/fa"
 export const sideList = [
     {
         id: 1,
         img: "",
-        content: "Student",
+        title: "Student",
+        link: '/students',
         isAdmin: true
     },
     {
         id: 2,
         img: "",
-        content: "Courses",
+        title: "Courses",
+        link: '/courses',
         isAdmin: true  
     },
     {
         id: 3,
         img: "",
-        content: "Department",
+        title: "Department",
+        link: '/department',
         isAdmin: true   
     },
     {
         id: 4,
         img: "",
-        content: "Assessment",
+        title: "Assessment",
+        link: '/assessment',
         isAdmin: true   
     },
     {
         id: 5,
         img: "",
-        content: "Result",
+        title: "Result",
+        link: '/result',
         isAdmin: true   
     },
     {
         id: 6,
         img: "",
-        content: "Course Registration",
+        title: "Course Registration",
+        link: '/course-registration',
         isAdmin: false
     },
-    {
-        id: 7,
-        img: "",
-        content: "Course Registered",
-        isAdmin: false
-    },
-    {
-        id: 8,
-        img: "",
-        content: "List of Result",
-        isAdmin: true
-    },
-    {
-        id: 9,
-        img: "",
-        content: "Add Result",
-        isAdmin: true
-    },
+    
 ]

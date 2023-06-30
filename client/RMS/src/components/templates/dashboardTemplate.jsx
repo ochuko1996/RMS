@@ -6,7 +6,6 @@ import { useSelector } from "react-redux"
 
 function DashboardTemplate({header, aside, footer, children}) {
   const studentModal = useSelector(({studentModal})=> studentModal.studentModal)
-  console.log(studentModal);
   return (
     <>
       <main className="relative">

@@ -74,3 +74,9 @@ aside li:hover{
 .modal-wrapper{
     background-color: rgba(0, 0, 0, 0.782);
 }
+.authWrapper{
+    background-image: url(./assets/students_09.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

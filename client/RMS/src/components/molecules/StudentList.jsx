@@ -1,7 +1,9 @@
 import React from 'react'
 import StudentListData from './StudentListData'
-
+import useFetch from '../../hooks/useFetch'
+const USER = "/user"
 function StudentList() {
+  const studentData = useFetch(USER) 
   return (
     <div className='relative'>
         <div className="studentListHeader studentList grid">
@@ -14,6 +16,8 @@ function StudentList() {
         </div>
         {
             [...Array(50).keys()].map(i => <StudentListData key={i}/>)
+            // studentData.map(student => <StudentListData key={student}/>)
+
         }
     </div>
     

@@ -12,8 +12,7 @@ const ProtectedRoute = ({ redirectPath = "/login", children }) => {
   // const token = localStorage.getItem("token");
   const {auth} = useAuth()
   const location = useLocation()
-
-  if (!auth?.user) {
+  if (!auth) {
     return <Navigate to={redirectPath} state={{from: location}}  replace />;
   }
 
@@ -45,9 +44,9 @@ function App() {
 
         {/* protected routes */}
         <Route path="/" element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <Dashboard/>
-          // </ProtectedRoute>
+          </ProtectedRoute>
         }/>
 
         {/* catch all */}

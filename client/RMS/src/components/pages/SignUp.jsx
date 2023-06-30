@@ -28,10 +28,7 @@ function SignUp() {
         // withCredentials: true
       }
       ) 
-      // console.log(response.data);
-      // console.log(response.json());
       setDepts(response.data)
-      // return response
     } catch (error) {
       
     }
@@ -78,17 +75,17 @@ function SignUp() {
   }, [])
   
   return (
-    <main className="flex flex-col md:flex-row justify-between bg-slate-700">
+    <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper">
         <div className="md:w-1/2"></div>
         <div className="md:w-1/2 h-[100vh] flex flex-col items-center justify-center bg-[transparent]">
-          <h1 className="mb-5">
+          {/* <h1 className="mb-5">
             Register
-          </h1>
+          </h1> */}
           <div className="btn-wrapper mb-5">
-            <Button className="mr-10 bg-[#33b0dd] p-[10px]" onClick={()=> setIsStudent(true)}>
+            <Button className={`mr-10 ${isStudent ? "bg-[--blue-gray-3] text-white" : "bg-[#faf7f7]"}  p-[10px] rounded-sm`} onClick={()=> setIsStudent(true)}>
               Student
             </Button>
-            <Button className="p-[10px] bg-[#faf7f7] bordered"  onClick={()=> setIsStudent(false)}>
+            <Button className={`p-[10px] ${isStudent ? "bg-[#faf7f7]" : "bg-[--blue-gray-3] text-white" }  bordered rounded-sm`}  onClick={()=> setIsStudent(false)}>
               Admin
             </Button>
           </div>

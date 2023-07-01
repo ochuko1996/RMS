@@ -8,7 +8,7 @@ function useFetch(url) {
             headers: {'Content-Type': "application/json"},
             withCredentials: true
         })
-        setData(response)
+        setData(response.data)
     }
     useEffect(()=>{
         fetchData()

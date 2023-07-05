@@ -5,12 +5,16 @@ import Input from "../atom/Input"
 import axios from "../../api/axios"
 import useAuth from "../../hooks/useAuth"
 import {FaEye, FaEyeSlash} from 'react-icons/fa'
-
+import { useLoginMutation } from "../../store/features/authApiSlice"
+import { useDispatch } from "react-redux"
+import { setCredentials } from "../../store/api/authSlice"
 const LOGIN_URL = 'auth/login'
 function Auth() {
   const [showPwd, setShowPwd] = useState(false)
-  const {setAuth, auth} = useAuth()
+  const {setAuth, auth, persist, setPersist} = useAuth()
   const navigate = useNavigate()
+  const [login, {isLoading}] = useLoginMutation()
+  const dispatch = useDispatch()
   const from = location.state?.pathname || "/";
   const initialData = {
     email: "",
@@ -20,22 +24,26 @@ function Auth() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(LOGIN_URL, 
-        JSON.stringify({email: formValues.email, password: formValues.password}),
-        {
-          headers: {'Content-Type': 'application/json'},
-          withCredentials: true
-        }) 
-        console.log(JSON.stringify(response?.data));
-        const accessToken = response?.data?.user?.accessToken
-        const roles = response?.data?.user?.roles
-        const firstName = response?.data?.user?.user?.firstName
-        console.log(firstName);
-        setAuth({email: formValues.email, password: formValues.password, firstName, roles, accessToken})
-        // console.log(auth);
+      // const response = await axios.post(LOGIN_URL, 
+      //   JSON.stringify({email: formValues.email, password: formValues.password}),
+      //   {
+      //     headers: {'Content-Type': 'application/json'},
+      //     withCredentials: true
+      //   }) 
+      //   const accessToken = response?.data?.user?.accessToken
+      //   const roles = response?.data?.user?.roles
+      //   const firstName = response?.data?.user?.user?.firstName
+      //   console.log(firstName);
+      //   setAuth({email: formValues.email, password: formValues.password, firstName, roles, accessToken})
+        const userData = await login({email: formValues.email, password: formValues.password})
+        const accessToken = userData?.data?.user.accessToken
+        const roles = userData?.data?.user.roles
+        const firstName = userData?.data?.user?.user?.firstName
+        
+        dispatch(setCredentials({accessToken, roles, firstName}))
+
         navigate(from, {replace: true})
         setFormValues(initialData.email= "", initialData.password="")
-        // navigate("/")
     } catch (error) {
         if(!error?.response) {
           throw new Error("No server response")
@@ -48,18 +56,24 @@ function Auth() {
         }
     }
   };
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setFormValues((prev) => {
       return {
         ...prev,
         [e.target.name]: e.target.value,
       };
     });
+  }
   // const emailRef = useRef()
   // useEffect(() => {
   //   emailRef.current.focus()
   // }, [])
-  
+  const togglePersist = ()=>{
+    setPersist(prev => !prev)
+  }
+  useEffect(()=>{
+    localStorage.setItem("persist", persist)
+  },[persist])
   return (
     <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper">
         <div className="md:w-1/4 lg:w-1/2"></div>
@@ -92,7 +106,8 @@ function Auth() {
               </Input>
             </span>
             <div>
-              <input type="checkbox" name="login" id="" /> Keep me login
+              <Input 
+                type="checkbox" name="persist" id="persist" onChange={togglePersist} checked={persist}   /> Keep me login
             </div>
             <div>
               <Button type="submit" className="w-full bg-[--blue-gray-3] rounded-sm h-10 text-white mt-5">

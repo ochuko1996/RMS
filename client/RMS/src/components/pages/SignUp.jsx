@@ -3,6 +3,7 @@ import Button from "../atom/Button"
 import {Link} from "react-router-dom"
 import Input from "../atom/Input"
 import axios from "../../api/axios"
+import { useSignupMutation } from "../../store/features/authApiSlice"
 
 const REGISTER_URL = '/auth/register'
 const DEPARTMENT_URL = '/department'
@@ -10,7 +11,7 @@ const DEPARTMENT_URL = '/department'
 function SignUp() {
   const [isStudent, setIsStudent] = useState(true)
   const [depts, setDepts] = useState([])
-  
+  const signup = useSignupMutation()
   const initialData = {
     matricNo: "",
     firstName: "",
@@ -37,21 +38,29 @@ function SignUp() {
     e.preventDefault()
     // console.log(setFormValues(initialData));
     try {
-      const response = await axios.post(REGISTER_URL, 
-        JSON.stringify(
-          {
+      // const response = await axios.post(REGISTER_URL, 
+      //   JSON.stringify(
+          // {
+          //   matricNo: formValues.matricNo ,
+          //   firstName: formValues.firstName, 
+          //   lastName: formValues.lastName, 
+          //   email: formValues.email, 
+          //   password: formValues.password, 
+          //   department: formValues.department
+          // }
+      //   ),
+      //   {
+      //     headers: {'Content-Type': 'application/json'},
+      //     withCredentials: true
+      //   })
+      const signUp = await signup({
             matricNo: formValues.matricNo ,
             firstName: formValues.firstName, 
             lastName: formValues.lastName, 
             email: formValues.email, 
             password: formValues.password, 
             department: formValues.department
-          }
-        ),
-        {
-          headers: {'Content-Type': 'application/json'},
-          withCredentials: true
-        })
+          })
         setFormValues(initialData)
     } catch (error) {
       if(!error?.response) {

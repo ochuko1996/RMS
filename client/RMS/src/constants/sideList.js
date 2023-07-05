@@ -39,7 +39,7 @@ export const sideList = [
         id: 6,
         img: "",
         title: "Course Registration",
-        link: '/course-registration',
+        link: '/course_registration',
         isAdmin: false
     },
     

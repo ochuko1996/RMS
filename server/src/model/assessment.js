@@ -22,7 +22,7 @@ const AssessmentSchema = Schema({
         require: true,
         default: 0
     },
-    course: {
+    registeredCourse: {
         type: Schema.Types.String,
         ref: "CourseReg"
     },
@@ -31,9 +31,4 @@ const AssessmentSchema = Schema({
         ref: "User"
     }
 })
-
 module.exports = mongoose.model("Assessment", AssessmentSchema)
-
-
-
-

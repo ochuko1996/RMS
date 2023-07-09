@@ -8,7 +8,7 @@ const cors = require('cors')
 
 // utils
 const connectDB = require('./src/db/connect')
-const {corsOptions} = require('./src/config/corsOptions')
+const corsOptions = require('./src/config/corsOptions')
 
 // routes
 const userRoute = require('./src/routes/userRoute')
@@ -22,27 +22,36 @@ const department = require('./src/routes/departmentRoute')
 
 
 const PORT = process.env.PORT | 4500
+// handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(require('./src/middlewares/credentials'))
  
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions))
+
 // middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-// handle options credentials check - before CORS!
-// and fetch cookies credentials requirement
-app.use(require('./src/middlewares/credentials'))
-
-// Cross Origin Resource Sharing
-// app.use(cors(corsOptions))
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
-// app.use(cors())
-
 // middleware for cookies
 app.use(cookieParser())
+
+
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+//     // res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
+// app.use(cors({
+//   origin: 'http://localhost:5173',
+//   credentials: true
+// }));
+// app.use(cors())
+// app.options('/api/user', (req, res) => {
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.sendStatus(200);
+// });
 
 // routes
 app.use('/api',  authRoute)
@@ -53,9 +62,9 @@ app.use('/api/department', department)
 // JWT Verification Middleware
 app.use(require('./src/middlewares/verifyJWT'))
 // protected route
-app.use('/api',  userRoute)
-app.use('api/courses', courseRoute)
 app.use('/api/register-course', courseRegisteration )
+app.use('/api/courses', courseRoute)
+app.use('/api',  userRoute)
 app.use('/api/assessment', assessment )
 
 app.use('/api/', (req, res)=>{

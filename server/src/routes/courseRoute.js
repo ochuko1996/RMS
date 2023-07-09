@@ -4,8 +4,8 @@ const verifyRoles = require('../middlewares/verifyRoles')
 const roles = require('../config/roles_list')
 
 router.route("/")
-    .post(verifyRoles(roles.admin),createCourse)
-    .get(verifyRoles(roles.admin, roles.student), getCourses)
+    .post(verifyRoles(roles.admin), createCourse)
+    .get(getCourses)
     
 router.route("/:id")
     .get(verifyRoles(roles.admin), getCourse)

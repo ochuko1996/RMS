@@ -2,9 +2,25 @@ const { StatusCodes } = require("http-status-codes")
 const User = require("../model/User")
 
 const getUsers = async(req, res)=>{
-    const user = await User.find({matricNo})
-
-    res.status(StatusCodes.OK).json({user: user})
+     const {department, semester, period, level, schoolSession} = req.query
+    const queryObject = {}
+    if (department) {
+        queryObject.department = department
+    }
+    if (semester) {
+        queryObject.semester = semester
+    }
+    if (period) {
+        queryObject.period = period
+    }
+    if (level) {
+        queryObject.level = level
+    }
+    if (schoolSession) {
+        queryObject.schoolSession = schoolSession
+    }
+    const user = await User.find().populate({path: "department"})
+    res.status(StatusCodes.OK).json(user)
 }
 const getUser = async(req, res)=>{
     const id = req.params.id

@@ -4,14 +4,14 @@ const Schema = mongoose.Schema
 const CourseRegSchema = new Schema({
     course:{
         type: Schema.Types.ObjectId,
-        ref: "Course"
+        ref: "Courses"
     },
     level: {
         type: String,
         require: true
     },
     semester: {
-        type: String,
+        type: String,   
         require: true
     },
     period: {

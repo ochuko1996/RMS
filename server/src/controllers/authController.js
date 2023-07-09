@@ -10,10 +10,10 @@ const register = async (req, res)=>{
     const user = await User.findOne({email})
 
     // find matric no
-    const checkMatricNo = await User.findOne({matricNo})
-    
-    // check for duplicate matric no
-    if(checkMatricNo) return res.status(StatusCodes.CONFLICT).json(`user with ID: ${checkMatricNo}`)
+    const checkMatricNo = await User.findOne({matricNo: matricNo})
+    if (typeof(checkMatricNo.matricNo)) {
+       return; 
+    } else if (checkMatricNo) return res.status(StatusCodes.CONFLICT).json(`user with Matric No: ${checkMatricNo} already exist`)
     
     // check for existing user
     if(user) return res.status(StatusCodes.CONFLICT).json("user already exist")
@@ -38,9 +38,10 @@ const login = async (req, res)=>{
     const {email, password} = req.body
     // find user
     const user = await User.findOne({email})
-    
+
     //COMPARE PAYLOAD PASSWORD WITH HASHED PASSWORD
     const comparePwd = bcrypt.compare(password, user.password)
+    
     // check if user exist
     if(user){
         if (comparePwd){
@@ -52,14 +53,13 @@ const login = async (req, res)=>{
                     "UserInfo": serializeUser(user)
                 }, 
                 process.env.ACCESS_TOKEN_SECRET, 
-                {expiresIn: '30s'}
+                {expiresIn: '1d'}
             )
             
             const refreshToken = jwt.sign(serializeUser(user), process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'})
             
             user.refreshToken = refreshToken;
             const result = await user.save()
-            console.log(result);
             res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: 'None',  maxAge: 24 * 60 * 60 * 1000})//secure: true
             return res.status(StatusCodes.ACCEPTED).json({user: {
                 accessToken,
@@ -68,7 +68,7 @@ const login = async (req, res)=>{
             }})
         }
     } else {
-        return res.status(StatusCodes.NOT_FOUND).json({messsage: "User not found"})
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong")
     }
 }
 
@@ -88,5 +88,4 @@ function serializeUser(user) {
 module.exports = {
     login,
     register,
-    
 }

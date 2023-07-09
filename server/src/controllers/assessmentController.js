@@ -1,27 +1,29 @@
 const CourseReg = require('../model/CourseReg')
 const assessment = require('../model/assessment')
 const getGrade = require('../utils/gradeFunc')
-
+const {StatusCodes} = require('http-status-codes')
 const addAssessment = async (req, res)=>{
-    const id = req.params.id
     const {classWork, exam} = req.body
-    const sum = classWork + exam
-    const courseRegUnit = await CourseReg.findOne({_id: id}).select("courseUnit -semester -level -time -createdBy")
-    
-    // const newAssessment = await assessment.create({
-    //     classWork,
-    //     exam,
-    //     total: sum,
-    //     point: getGrade(sum)
-    //     gpa: 
+    const sum = parseInt(classWork) + parseInt(exam)
+    try {
 
-    // })
-    // res.json(courseRegUnit)
-    console.log(courseRegUnit);
+        // if()
+        const newAssessment = await assessment.create({
+            classWork: parseInt(classWork),
+            exam: parseInt(exam),
+            total: sum,
+            point: getGrade(sum)
+    
+        })
+        res.status(StatusCodes.CREATED).json(newAssessment)
+    } catch (error) {
+        console.log(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("something went wrong")
+    }
 }
 
 const getAssessments = async (req, res)=>{
-    const assessments = await assessment.find()
+    const assessments = await assessment.find().populate()
     res.json(assessments)
 }
 

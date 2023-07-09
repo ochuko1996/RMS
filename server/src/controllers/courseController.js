@@ -23,7 +23,7 @@ const getCourses = async (req, res)=>{
         res.status(StatusCodes.OK).json(courses)
         
     } catch (error) {
-        return res.sendStatus(StatusCodes.BAD_REQUEST)
+        return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
 

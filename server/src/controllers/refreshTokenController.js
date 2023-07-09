@@ -4,14 +4,15 @@ const jwt = require('jsonwebtoken')
 
 const refreshTokenController = async (req, res)=>{
     const cookies = req.cookies;
-    if(!cookies?.jwt) return res.sendStatus(StatusCodes.UNAUTHORIZED)
+    console.log(cookies);
+    if(!cookies?.jwt) return res.status(StatusCodes.UNAUTHORIZED).json('no cookies with jwt')
 
     const refreshToken = cookies.jwt
     
     // is refreshToken in db?
     const user = await User.findOne({refreshToken}).exec()
 
-    if(!user) return res.sendStatus(StatusCodes.UNAUTHORIZED)
+    if(!user) return res.status(StatusCodes.UNAUTHORIZED).json('no user login')
 
     
     jwt.verify(
@@ -27,7 +28,7 @@ const refreshTokenController = async (req, res)=>{
                     "UserInfo": serializeUser(user)
                 }, 
                 process.env.ACCESS_TOKEN_SECRET, 
-                {expiresIn: '15m'}
+                {expiresIn: '10s'}
             )
             res.json({accessToken})
             

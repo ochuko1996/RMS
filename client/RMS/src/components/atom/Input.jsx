@@ -1,5 +1,5 @@
 
-function Input({children, type, name, placeholder, className, ref, onChange}) {
+function Input({children, type, name, placeholder, className, ref, onChange,value}) {
   return (
     <label className="block">
         {children}
@@ -11,6 +11,7 @@ function Input({children, type, name, placeholder, className, ref, onChange}) {
             autoComplete='false'
             ref={ref}
             onChange={onChange}
+            value={value}
             required
         />
     </label> 

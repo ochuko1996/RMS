@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 
 import {setCredentials, logOut} from './authSlice'
+// import { useDispatch } from "react-redux"
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:4500/api',
@@ -16,8 +17,9 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
-
+    // const dispatch = useDispatch()
     if(result?.error?.originalStatus === 403){
+        console.log(result);
         //  send refresh token to get new access token 
         const refreshResult = await baseQuery('/refresh', api, extraOptions)
         console.log(refreshResult);
@@ -37,5 +39,5 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
-     endpoints: builder => ({})
+    endpoints: builder => ({})
 })

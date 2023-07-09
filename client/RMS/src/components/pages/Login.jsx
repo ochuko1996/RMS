@@ -24,24 +24,11 @@ function Auth() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // const response = await axios.post(LOGIN_URL, 
-      //   JSON.stringify({email: formValues.email, password: formValues.password}),
-      //   {
-      //     headers: {'Content-Type': 'application/json'},
-      //     withCredentials: true
-      //   }) 
-      //   const accessToken = response?.data?.user?.accessToken
-      //   const roles = response?.data?.user?.roles
-      //   const firstName = response?.data?.user?.user?.firstName
-      //   console.log(firstName);
-      //   setAuth({email: formValues.email, password: formValues.password, firstName, roles, accessToken})
         const userData = await login({email: formValues.email, password: formValues.password})
         const accessToken = userData?.data?.user.accessToken
         const roles = userData?.data?.user.roles
         const firstName = userData?.data?.user?.user?.firstName
-        
         dispatch(setCredentials({accessToken, roles, firstName}))
-
         navigate(from, {replace: true})
         setFormValues(initialData.email= "", initialData.password="")
     } catch (error) {

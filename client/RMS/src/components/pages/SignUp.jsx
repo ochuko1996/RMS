@@ -3,15 +3,16 @@ import Button from "../atom/Button"
 import {Link} from "react-router-dom"
 import Input from "../atom/Input"
 import axios from "../../api/axios"
+import { useGetDepartmentQuery } from "../../store/features/departmentSlice"
 import { useSignupMutation } from "../../store/features/authApiSlice"
-
-const REGISTER_URL = '/auth/register'
-const DEPARTMENT_URL = '/department'
 
 function SignUp() {
   const [isStudent, setIsStudent] = useState(true)
-  const [depts, setDepts] = useState([])
-  const signup = useSignupMutation()
+  const [signup, {isLoading: loading}] = useSignupMutation()
+  const {
+    isLoading,
+    data: departments
+  } = useGetDepartmentQuery()
   const initialData = {
     matricNo: "",
     firstName: "",
@@ -22,45 +23,29 @@ function SignUp() {
   };
 
   const [formValues, setFormValues] = useState(initialData);
-  const fetchDepartment = async()=>{
-    try {
-      const response = await axios.get(DEPARTMENT_URL, {
-        headers: {"Content-Type": 'application/json'},
-        // withCredentials: true
-      }
-      ) 
-      setDepts(response.data)
-    } catch (error) {
-      
-    }
-  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     // console.log(setFormValues(initialData));
     try {
-      // const response = await axios.post(REGISTER_URL, 
-      //   JSON.stringify(
-          // {
-          //   matricNo: formValues.matricNo ,
-          //   firstName: formValues.firstName, 
-          //   lastName: formValues.lastName, 
-          //   email: formValues.email, 
-          //   password: formValues.password, 
-          //   department: formValues.department
-          // }
-      //   ),
-      //   {
-      //     headers: {'Content-Type': 'application/json'},
-      //     withCredentials: true
-      //   })
-      const signUp = await signup({
-            matricNo: formValues.matricNo ,
+     
+      // const signUp = await signup({
+      //       matricNo: formValues?.matricNo,
+      //       firstName: formValues.firstName, 
+      //       lastName: formValues.lastName, 
+      //       email: formValues.email, 
+      //       password: formValues.password, 
+      //       department: formValues?.department
+      // })
+      // console.log(signUp);
+      console.log({
+            matricNo: formValues?.matricNo,
             firstName: formValues.firstName, 
             lastName: formValues.lastName, 
             email: formValues.email, 
             password: formValues.password, 
-            department: formValues.department
-          })
+            department: formValues?.department
+      });
         setFormValues(initialData)
     } catch (error) {
       if(!error?.response) {
@@ -79,10 +64,10 @@ function SignUp() {
         [e.target.name]: e.target.value,
       };
     });
-  useEffect(() => {
-    fetchDepartment()
-  }, [])
-  
+  // useEffect(() => {
+  //   fetchDepartment()
+  // }, [])
+  let content;
   return (
     <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper">
         <div className="md:w-1/2"></div>
@@ -146,12 +131,14 @@ function SignUp() {
                   Department:
                   
                   <select name="department" value={formValues.department} onChange={handleChange}>
-                    <option value="csc" disabled>select department</option>
                     {
-                      depts.map((dept, index)=>{
-                        console.log(dept);
-                        return <option key={dept._id} value={dept._id} className="text-black">{dept.departmentName}</option>
-                      })
+                      isLoading ? content = <option value="csc" disabled>select department</option>
+                      :(
+
+                        departments.map((dept, index)=>{
+                          return <option key={dept._id} value={dept._id} className="text-black">{dept.departmentName}</option>
+                        })
+                      )
                     }
                     
                     {/* <option value="csc">computer engineering</option>

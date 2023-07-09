@@ -3,7 +3,6 @@ import RegStudentData from './RegStudentData'
 import useFetch from '../../hooks/useFetch'
 const REGISTERED_COURSES_URL = '/register-course'
 function RegisteredCourses() {
-  const registerCourseData = useFetch(REGISTERED_COURSES_URL) 
 
   return (
     <div className='relative'>

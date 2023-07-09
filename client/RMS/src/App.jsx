@@ -13,6 +13,7 @@ import Assessment from "./components/pages/Assessment"
 import CourseRegistration from "./components/pages/CourseRegistration"
 import Department from "./components/pages/Department"
 import HomePage from "./components/pages/HomePage"
+import Unauthorized from "./components/pages/Unauthorized"
 import PersistLogin from "./components/PersistLogin"
 
 
@@ -24,17 +25,24 @@ function App() {
           {/* public routes */}
           <Route path="login" element={<Login/>}/> 
           <Route path="signup" element={<SignUp/>}/> 
+          <Route path="unauthorized" element={<Unauthorized/>}/> 
           
           {/* protected routes */}
-          <Route element={<RequireAuth/>}>
+          {/* <Route element={<RequireAuth allowedRoles={[1000]} />}> */}
             <Route path="/" element={<HomePage/>}/>
+          {/* </Route> */}
+          {/* <Route element={<RequireAuth allowedRoles={[1111]} />}> */}
+          
             <Route path="/assessment" element={<Assessment/>}/>
             <Route path="/students" element={<Students/>}/>
             <Route path="/department" element={<Department/>}/>
-            <Route path="/result" element={<Result/>}/>
             <Route path="/courses" element={<Courses/>}/>
+          {/* </Route> */}
+          {/* <Route element={<RequireAuth allowedRoles={[1111,1000]} />}> */}
+          
+            <Route path="/result" element={<Result/>}/>
             <Route path="/course_registration" element={<CourseRegistration/>}/>
-          </Route>
+          {/* </Route> */}
       
           {/* catch all */}
           <Route path="*" element={<Missing/>}/>

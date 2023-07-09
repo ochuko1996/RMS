@@ -1,14 +1,16 @@
 import React from 'react'
 import Button from '../atom/Button'
 import useAuth from '../../hooks/useAuth'
-import { useSelector } from 'react-redux'
-import { selectCurrentFirstname } from '../../store/api/authSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { logOut, selectCurrentFirstname } from '../../store/api/authSlice'
 
 function NavWrapper() {
   const firstName = useSelector(selectCurrentFirstname)
   const {auth} = useAuth()
+  const dispatch = useDispatch()
   const logout = (e)=>{
     e.preventDefault()
+    dispatch(logOut())
   }
   return (
     <div className='flex  w-[15%] justify-between text-white'>

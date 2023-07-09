@@ -1,19 +1,22 @@
 import React from 'react'
 import DashboardTemplate from '../templates/dashboardTemplate'
 import Input from '../atom/Input'
-import useFetch from '../../hooks/useFetch'
-const COURSES_URL = '/courses'
+import { useGetCoursesQuery } from '../../store/features/coursesSlice';
+import AddCourses from '../molecules/AddCourses';
+import AllCourses from '../molecules/AllCourses';
 function Courses() {
-  const courses = useFetch(COURSES_URL)
-  console.log(courses);
+  const {data:courses, isLoading} =useGetCoursesQuery()
   return (
     <DashboardTemplate>
          <main className=' bg-slate-200 md:w-4/5 p-5 h-[90vh] overflow-y-scroll'>
-             <div className="filter">
-              <Input type="checkbox" name="department">
-                Department: &nbsp;
-              </Input>
-             </div>
+             <AddCourses/>
+             {
+              isLoading 
+                ? <h1>loading...</h1>
+                : (
+                  courses.map(course=> <AllCourses key={course._id} course={course}/>)
+                )
+             }
         </main>
     </DashboardTemplate>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Button({children, className, onClick, value, onchange, type}) {
+function Button({children, className, onClick, value, onchange, type, disabled}) {
   return (
     <button 
         className={className} 
@@ -8,6 +8,7 @@ function Button({children, className, onClick, value, onchange, type}) {
         value={value}
         onChange={onchange}
         type={type}
+        disabled={disabled}
     >
             {children}
     </button>

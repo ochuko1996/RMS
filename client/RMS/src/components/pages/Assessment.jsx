@@ -22,10 +22,6 @@ function Assessment() {
           <h1 className='font-bold text-center mb-5'>Enter Assessment</h1>
          {/* { [...Array(50).keys()].map((i) => <AddAssessment key={i}/>) } */}
          {
-          // isLoading 
-          // ?
-          //   content = <h1>loading...</h1>
-          //   : 
             (
 
               useGetall.map((assessment)=> {

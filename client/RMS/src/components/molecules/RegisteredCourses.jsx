@@ -1,7 +1,5 @@
 import React from 'react'
 import RegStudentData from './RegStudentData'
-import useFetch from '../../hooks/useFetch'
-const REGISTERED_COURSES_URL = '/register-course'
 function RegisteredCourses() {
 
   return (

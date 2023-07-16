@@ -22,8 +22,10 @@ function AddAssessment({assessment}) {
       }
     })
   }
-  const matricNo = assessment.createdBy
-  const course = assessment?.course?._id
+  const course = assessment._id
+  const createdBy = assessment.createdBy
+  const matricNo = assessment.matricNo
+  console.log();
   const handleSubmit = async(e)=>{
     e.preventDefault()
     try {
@@ -34,21 +36,24 @@ function AddAssessment({assessment}) {
           {
             classWork: formValues.classWork,
             exam: formValues.exam, 
-            matricNo, 
-            registeredCourse: course
+            registeredCourse: course,
+            createdBy,
+            matricNo: matricNo
           })
         console.log(newAssessment);
         console.log({
           classWork: formValues.classWork, 
           exam: formValues.exam, 
-          matricNo, 
           registeredCourse: course
         });
         setFormValues(intialState)
         setSent(true)
       }
     } catch (error) {
-      throw new Error(error)
+      console.log(error);
+      if (error.data.code === 409) {
+        throw new Error("course already marked")
+      }
     }
   }
   let content;
@@ -56,7 +61,7 @@ function AddAssessment({assessment}) {
     <div className=" mb-3  ">
             <form method='post' className='flex items-center border-b border-[--blue-gray-1] p-1'>
               <p className="lg:mr- capitalize w-1/5">
-                Mat_no: {assessment ? assessment.createdBy : 223232}
+                Mat_no: {assessment ? assessment.matricNo : 223232}
               </p>
               <p className="lg:mr- capitalize w-1/5">
                 {assessment?.course?.name}
@@ -67,12 +72,14 @@ function AddAssessment({assessment}) {
                 onChange={handleChange}
                 className="rounded-sm lg:mr- p-1 w-1/5"
                 placeholder={"30"}
+                maxLength={"2"}
                 value={formValues.classWork}
-
-              >
+                
+                >
                 Classwork: &nbsp; 
               </Input>
               <Input
+                maxLength={"2"}
                 type="number"
                 name="exam"
                 onChange={handleChange}

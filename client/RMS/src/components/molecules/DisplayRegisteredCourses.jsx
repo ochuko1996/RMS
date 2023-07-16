@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react"
 import { useGetRegisteredCoursesQuery } from "../../store/features/registeredCourseSlice"
 function DisplayRegisteredCourses() {
+    const [isLoading, setIsLoading] = useState(true)
+    const [data, setdata] = useState([])
     const {
-        isLoading,
-        data
+        isLoading: courseIsLoading,
+        data: courseData
     } = useGetRegisteredCoursesQuery()
     
-    const courses = data;
-    console.log(courses);
+    useEffect(()=>{
+      setIsLoading(courseIsLoading)
+      setdata(courseData)
+    },[isLoading, data])
     let content;
   return (
     <section>
@@ -15,16 +19,19 @@ function DisplayRegisteredCourses() {
             Register Courses
         </h1>
         <ol>
-        {
-          isLoading ? content = <li>loading...</li>
-          :
-          courses.map(item => {
-            const {course: name } = item
-            const course = item.course
-            return <li key={item._id}>{course.name}</li>
-          }) 
-      
-        }
+         {isLoading ? (
+          <li>loading...</li>
+        ) : (
+          <>
+            {data && data.length ? (
+              data.map(item => (
+                <li key={item._id}>{item.course.name}</li>
+              ))
+            ) : (
+              <p>course is empty</p>
+            )}
+          </>
+        )}
       </ol>
     </section>
   ) 

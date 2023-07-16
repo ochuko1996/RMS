@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../atom/Button"
 import Input from "../atom/Input"
-import axios from "../../api/axios"
 import useAuth from "../../hooks/useAuth"
 import {FaEye, FaEyeSlash} from 'react-icons/fa'
 import { useLoginMutation } from "../../store/features/authApiSlice"
@@ -24,13 +23,17 @@ function Auth() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-        const userData = await login({email: formValues.email, password: formValues.password})
-        const accessToken = userData?.data?.user.accessToken
-        const roles = userData?.data?.user.roles
-        const firstName = userData?.data?.user?.user?.firstName
-        dispatch(setCredentials({accessToken, roles, firstName}))
-        navigate(from, {replace: true})
-        setFormValues(initialData.email= "", initialData.password="")
+        if (!formValues.email && !formValues.password) {
+          alert('please enter email and password')
+        }else if(formValues.email && formValues.password){
+          const userData = await login({email: formValues.email, password: formValues.password})
+          const accessToken = userData?.data?.user.accessToken
+          const roles = userData?.data?.user.roles
+          const firstName = userData?.data?.user?.user?.firstName
+          dispatch(setCredentials({accessToken, roles, firstName}))
+          navigate(from, {replace: true})
+          setFormValues(initialData.email= "", initialData.password="")
+        }
     } catch (error) {
         if(!error?.response) {
           throw new Error("No server response")
@@ -92,10 +95,10 @@ function Auth() {
                 Password: 
               </Input>
             </span>
-            <div>
+            {/* <div>
               <Input 
                 type="checkbox" name="persist" id="persist" onChange={togglePersist} checked={persist}   /> Keep me login
-            </div>
+            </div> */}
             <div>
               <Button type="submit" className="w-full bg-[--blue-gray-3] rounded-sm h-10 text-white mt-5">
                 Login

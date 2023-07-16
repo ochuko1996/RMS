@@ -28,21 +28,21 @@ function App() {
           <Route path="unauthorized" element={<Unauthorized/>}/> 
           
           {/* protected routes */}
-          {/* <Route element={<RequireAuth allowedRoles={[1000]} />}> */}
+          <Route element={<RequireAuth allowedRoles={[1000]} />}>
             <Route path="/" element={<HomePage/>}/>
-          {/* </Route> */}
-          {/* <Route element={<RequireAuth allowedRoles={[1111]} />}> */}
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[1111]} />}>
           
             <Route path="/assessment" element={<Assessment/>}/>
             <Route path="/students" element={<Students/>}/>
             <Route path="/department" element={<Department/>}/>
             <Route path="/courses" element={<Courses/>}/>
-          {/* </Route> */}
-          {/* <Route element={<RequireAuth allowedRoles={[1111,1000]} />}> */}
-          
+          </Route>
+         
+          <Route element={<RequireAuth allowedRoles={[1111,1000]} />}>
             <Route path="/result" element={<Result/>}/>
             <Route path="/course_registration" element={<CourseRegistration/>}/>
-          {/* </Route> */}
+          </Route>
       
           {/* catch all */}
           <Route path="*" element={<Missing/>}/>

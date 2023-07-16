@@ -5,8 +5,8 @@ import useAuth from "../hooks/useAuth";
 
 const PersistLogin = ()=> {
     const [isLoading, setIsLoading] = useState(true)
+     const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist")) || false )
     const refresh = useRefreshToken()
-    const {auth, persist} = useAuth()
 
     useEffect(()=>{
         const verifyRefreshToken = async ()=> {

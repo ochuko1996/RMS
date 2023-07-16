@@ -5,8 +5,10 @@ import Input from "../atom/Input"
 import axios from "../../api/axios"
 import { useGetDepartmentQuery } from "../../store/features/departmentSlice"
 import { useSignupMutation } from "../../store/features/authApiSlice"
+import Welcome from "../molecules/Welcome"
 
 function SignUp() {
+  const [showModal, setShowModal] = useState(false)
   const [isStudent, setIsStudent] = useState(true)
   const [signup, {isLoading: loading}] = useSignupMutation()
   const {
@@ -29,15 +31,15 @@ function SignUp() {
     // console.log(setFormValues(initialData));
     try {
      
-      // const signUp = await signup({
-      //       matricNo: formValues?.matricNo,
-      //       firstName: formValues.firstName, 
-      //       lastName: formValues.lastName, 
-      //       email: formValues.email, 
-      //       password: formValues.password, 
-      //       department: formValues?.department
-      // })
-      // console.log(signUp);
+      const signUp = await signup({
+            matricNo: formValues?.matricNo,
+            firstName: formValues.firstName, 
+            lastName: formValues.lastName, 
+            email: formValues.email, 
+            password: formValues.password, 
+            department: formValues?.department
+      })
+      console.log(signUp)
       console.log({
             matricNo: formValues?.matricNo,
             firstName: formValues.firstName, 
@@ -46,7 +48,8 @@ function SignUp() {
             password: formValues.password, 
             department: formValues?.department
       });
-        setFormValues(initialData)
+      // signUp ? setShowModal(true) : setShowModal(false)
+      setFormValues(initialData)
     } catch (error) {
       if(!error?.response) {
         throw new Error("No server response")
@@ -70,6 +73,7 @@ function SignUp() {
   let content;
   return (
     <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper">
+      { showModal && <Welcome/>}
         <div className="md:w-1/2"></div>
         <div className="md:w-1/2 h-[100vh] flex flex-col items-center justify-center bg-[transparent]">
           {/* <h1 className="mb-5">

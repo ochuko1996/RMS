@@ -1,5 +1,5 @@
 
-function Input({children, type, name, placeholder, className, ref, onChange,value}) {
+function Input({children, type, name, placeholder, className, ref, onChange,value, maxLength}) {
   return (
     <label className="block">
         {children}
@@ -12,6 +12,7 @@ function Input({children, type, name, placeholder, className, ref, onChange,valu
             ref={ref}
             onChange={onChange}
             value={value}
+            maxLength={maxLength}
             required
         />
     </label> 

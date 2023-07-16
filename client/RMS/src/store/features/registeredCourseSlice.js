@@ -16,7 +16,7 @@ export const registeredCourseSlice = apiSlice.injectEndpoints({
             query: course => ({
                 url: '/register-course',
                 method: 'POST',
-                body: course
+                body: {...course}
             }),
             invalidatesTags: ["courses"]
         }),
@@ -40,9 +40,9 @@ export const registeredCourseSlice = apiSlice.injectEndpoints({
 })
 
 export const {
-    useAddRegisterCourseMutation, 
     useDeleteRegisterCourseMutation, 
     useGetRegisteredCoursesQuery, 
     useUpdateRegisterCourseMutation,
     useGetAllRegisteredCoursesQuery,
+    useAddRegisterCourseMutation,
 } = registeredCourseSlice

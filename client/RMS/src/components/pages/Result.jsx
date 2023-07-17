@@ -37,44 +37,37 @@ function Result() {
   //   setIsLoading(loadingResult)
   //   setDatas(singleResult)
   // },[isLoading, datas])
-
+  let semesterOne,
+    gpaOne,
+    semesterTwo,
+    gpaTwo,
+    semesterThree,
+    gpaThree,
+    semesterFour,
+    gpaFour,
+    semesterFive,
+    gpaFive,
+    semesterSix,
+    gpaSix;
   if (loadingResult) {
     console.log("loading...");
   }
   else if(singleResult.result && singleResult.result.length){
+    console.log(singleResult.result);
     console.log("success");
-    console.log(data, "data is available");
-    // return setResult
-    // console.log(data);
-    // const semesterOne = singleResult.result[0].semesterOne
-    // const gpaOne = singleResult.result[0].GPA_One
-    // const semesterTwo = singleResult.result[1].semesterTwo
-    // const gpaTwo = singleResult.result[1].GPA_Two
-    // const semesterThree = singleResult.result[2].semesterThree
-    // const gpaThree = singleResult.result[2].GPA_Three
-    // const semesterFour = singleResult.result[3].semesterFour
-    // const gpaFour = singleResult.result[3].GPA_Four
-    // const semesterFive = singleResult.result[4].semesterFive
-    // const gpaFive = singleResult.result[4].GPA_Five
-    // const semesterSix = singleResult.result[5].semesterSix
-    // const gpaSix = singleResult.result[5].GPA_Six
+     semesterOne = singleResult.result[0].semesterOne
+     gpaOne = singleResult.result[0].GPA_One
+     semesterTwo = singleResult.result[1].semesterTwo
+     gpaTwo = singleResult.result[1].GPA_Two
+     semesterThree = singleResult.result[2].semesterThree
+     gpaThree = singleResult.result[2].GPA_Three
+     semesterFour = singleResult.result[3].semesterFour
+     gpaFour = singleResult.result[3].GPA_Four
+     semesterFive = singleResult.result[4].semesterFive
+     gpaFive = singleResult.result[4].GPA_Five
+     semesterSix = singleResult.result[5].semesterSix
+     gpaSix = singleResult.result[5].GPA_Six
   }
-  // useEffect(()=>{
-  //   // setResult()
-  // },[data])
-  const semesterOne = singleResult.result[0].semesterOne
-  const gpaOne = singleResult.result[0].GPA_One
-  const semesterTwo = singleResult.result[1].semesterTwo
-  const gpaTwo = singleResult.result[1].GPA_Two
-  const semesterThree = singleResult.result[2].semesterThree
-  const gpaThree = singleResult.result[2].GPA_Three
-  const semesterFour = singleResult.result[3].semesterFour
-  const gpaFour = singleResult.result[3].GPA_Four
-  const semesterFive = singleResult.result[4].semesterFive
-  const gpaFive = singleResult.result[4].GPA_Five
-  const semesterSix = singleResult.result[5].semesterSix
-  const gpaSix = singleResult.result[5].GPA_Six
-  console.log(singleResult);
   
   if (token[0] === 1000) {
     content = (
@@ -82,7 +75,7 @@ function Result() {
        
         {
           loadingResult ? <p>loading...</p>
-          : singleResult.result && singleResult.result.length ? (
+          : singleResult.result[0].semesterOne && singleResult.result[0].semesterOne.length ? (
             <>
                 {
                   semesterOne && semesterOne.length ? (
@@ -148,7 +141,7 @@ function Result() {
                 } 
               <h1 className='text-2xl mt-5 font-bold'>Cumulative Grade Point Average : {singleResult.cgpa} </h1>
             </>
-          ): <p>No result Yet </p>
+          ): <p className='text-6xl font-bond text-center mt-[10rem]'>No result Yet </p>
         }
       </section>
     )

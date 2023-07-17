@@ -8,10 +8,13 @@ function DisplayRegisteredCourses() {
         data: courseData
     } = useGetRegisteredCoursesQuery()
     
-    useEffect(()=>{
-      setIsLoading(courseIsLoading)
-      setdata(courseData)
-    },[isLoading, data])
+    // if (courseIsLoading) {
+    //   console.log("loading...");
+    // }else if (courseData && courseData.length) {
+      
+    // }
+   
+    console.log(data);
     let content;
   return (
     <section>
@@ -19,12 +22,12 @@ function DisplayRegisteredCourses() {
             Register Courses
         </h1>
         <ol>
-         {isLoading ? (
+         {courseIsLoading ? (
           <li>loading...</li>
         ) : (
           <>
-            {data && data.length ? (
-              data.map(item => (
+            {courseData && courseData.length ? (
+              courseData.map(item => (
                 <li key={item._id}>{item.course.name}</li>
               ))
             ) : (

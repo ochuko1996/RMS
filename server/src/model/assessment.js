@@ -2,24 +2,24 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const AssessmentSchema = Schema({
-    classWork:{
+    classWork: {
         type: Number,
         default: 0,
-        require: true
+        required: true
     },
-    exam:{
+    exam: {
         type: Number,
         default: 0,
-        require: true   
+        required: true
     },
     total: {
         type: Number,
-        require: true,
-        default: 0,
+        required: true,
+        default: 0
     },
     point: {
         type: Number,
-        require: true,
+        required: true,
         default: 0
     },
     registeredCourse: {
@@ -31,4 +31,5 @@ const AssessmentSchema = Schema({
         ref: "User"
     }
 })
+
 module.exports = mongoose.model("Assessment", AssessmentSchema)

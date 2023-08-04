@@ -19,7 +19,7 @@ const logout = require('./src/routes/logout')
 const courseRegisteration = require('./src/routes/courseRegRoute')
 const assessment = require('./src/routes/assessmentRoute')
 const department = require('./src/routes/departmentRoute')
-
+const result = require('./src/routes/resultRoute')
 
 const PORT = process.env.PORT | 4500
 // handle options credentials check - before CORS!
@@ -37,21 +37,6 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-//     // res.header('Access-Control-Allow-Credentials', 'true');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     next();
-// });
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   credentials: true
-// }));
-// app.use(cors())
-// app.options('/api/user', (req, res) => {
-//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//   res.sendStatus(200);
-// });
 
 // routes
 app.use('/api',  authRoute)
@@ -66,6 +51,7 @@ app.use('/api/register-course', courseRegisteration )
 app.use('/api/courses', courseRoute)
 app.use('/api',  userRoute)
 app.use('/api/assessment', assessment )
+app.use('/api/result', result)
 
 app.use('/api/', (req, res)=>{
     res.send('<h1>RESULT MANAGEMENT SYSTEM</h1>') 

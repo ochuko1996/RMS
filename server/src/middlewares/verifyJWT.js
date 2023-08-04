@@ -13,7 +13,7 @@ const verifyJWT =  (req, res, next)=>{
             console.log(err);
             if(err) return res.sendStatus(StatusCodes.FORBIDDEN)
             req.user = decoded.UserInfo
-            req.roles = decoded.UserRole
+            req.roles = decoded.UserRole 
             next()
         }
     )

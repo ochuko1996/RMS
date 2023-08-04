@@ -8,18 +8,22 @@ const CourseRegSchema = new Schema({
     },
     level: {
         type: String,
-        require: true
+        required: true
     },
     semester: {
         type: String,   
-        require: true
+        required: true
     },
     period: {
         type: String,
-        require: true
+        required: true
     },
     createdBy: {
-        type: Schema.Types.Number,
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    matricNo: {
+        type: Schema.Types.Number, 
         ref: "User"
     }
 },

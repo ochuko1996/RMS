@@ -19,7 +19,7 @@ const getUsers = async(req, res)=>{
     if (schoolSession) {
         queryObject.schoolSession = schoolSession
     }
-    const user = await User.find().populate({path: "department"})
+    const user = await User.find(queryObject).populate("department")
     res.status(StatusCodes.OK).json(user)
 }
 const getUser = async(req, res)=>{

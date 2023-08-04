@@ -11,9 +11,16 @@ const register = async (req, res)=>{
 
     // find matric no
     const checkMatricNo = await User.findOne({matricNo: matricNo})
-    if (typeof(checkMatricNo.matricNo)) {
-       return; 
-    } else if (checkMatricNo) return res.status(StatusCodes.CONFLICT).json(`user with Matric No: ${checkMatricNo} already exist`)
+    // check for duplicate matric no
+    // if (checkMatricNo === null) {
+    //    return; 
+    // } else if (checkMatricNo) {
+    //     return res.status(StatusCodes.CONFLICT).json(`user with Matric No: ${checkMatricNo} already exist`)
+    // }
+    if (checkMatricNo !== null && checkMatricNo.matricNo !== null) {
+       return res.status(StatusCodes.CONFLICT).json(`user with Matric No: ${checkMatricNo} already exist`)
+    } 
+    
     
     // check for existing user
     if(user) return res.status(StatusCodes.CONFLICT).json("user already exist")
@@ -44,6 +51,7 @@ const login = async (req, res)=>{
     
     // check if user exist
     if(user){
+        if(!comparePwd) res.status(StatusCodes.UNAUTHORIZED).json("incorrect password")
         if (comparePwd){
             const roles = Object.values(user.roles).filter(Boolean)
             // create a token, in production ACCESS_TOKEN SHOULD BE 5MIN OR MORE
@@ -53,14 +61,25 @@ const login = async (req, res)=>{
                     "UserInfo": serializeUser(user)
                 }, 
                 process.env.ACCESS_TOKEN_SECRET, 
-                {expiresIn: '1d'}
+                {expiresIn: '10m'}
             )
             
-            const refreshToken = jwt.sign(serializeUser(user), process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'})
+            const refreshToken = jwt.sign({
+                    "UserRole": roles,
+                    "UserInfo": serializeUser(user)
+                },  process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'})
             
             user.refreshToken = refreshToken;
-            const result = await user.save()
-            res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: 'None',  maxAge: 24 * 60 * 60 * 1000})//secure: true
+            
+            // console.log(refreshToken);
+            try {
+                const result = await user.save()
+                console.log(result);
+                
+            } catch (error) {
+                console.log(error);
+            }
+            res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: 'None',  maxAge: 24 * 60 * 60 * 1000, secure: true   })//secure: true
             return res.status(StatusCodes.ACCEPTED).json({user: {
                 accessToken,
                 user: serializeUser(user),

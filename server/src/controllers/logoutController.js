@@ -6,10 +6,11 @@ const handleLogout = async (req, res)=>{
     // On client, also delete the  accessToken
 
     const cookies = req.cookies
+    // console.log(cookies);
     if(!cookies?.jwt) return res.sendStatus(StatusCodes.NO_CONTENT)
     
     const refreshToken = cookies.jwt
-    
+    // console.log(refreshToken);
     // is refreshToken in db?
     const user = await User.findOne({refreshToken}).exec()
 
@@ -26,20 +27,10 @@ const handleLogout = async (req, res)=>{
     res.sendStatus(StatusCodes.NO_CONTENT)
 }
 
-
-
  
 
 
-function serializeUser(user) {
-    return {
-        _id: user?._id,
-        matricNo: user?.matricNo,
-        email: user?.email,
-        firstName: user?.firstName,
-        matricNo: user?.matricNo,
-    }
-}
+
 module.exports = {
     handleLogout
 }

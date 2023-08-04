@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken')
 
 const refreshTokenController = async (req, res)=>{
     const cookies = req.cookies;
-    console.log(cookies);
+    // console.log(cookies);
     if(!cookies?.jwt) return res.status(StatusCodes.UNAUTHORIZED).json('no cookies with jwt')
 
     const refreshToken = cookies.jwt
-    
+    // console.log("server refresh token", `/n ${refreshToken}`);
     // is refreshToken in db?
     const user = await User.findOne({refreshToken}).exec()
 
@@ -19,7 +19,7 @@ const refreshTokenController = async (req, res)=>{
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded)=>{
-            if(err || user.email !== decoded.email) return res.sendStatus(StatusCodes.FORBIDDEN)
+            if(err || user.email !== decoded.UserInfo.email) return res.sendStatus(StatusCodes.FORBIDDEN)
             
             const roles = Object.values(user.roles)
             const accessToken = jwt.sign(

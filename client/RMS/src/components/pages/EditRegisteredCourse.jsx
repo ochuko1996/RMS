@@ -1,13 +1,15 @@
-import {useState} from 'react'
-import DashboardTemplate from '../templates/dashboardTemplate'
+import { useState } from "react";
+import MainWrapper from "../molecules/MainWrapper"
 import { useGetCoursesQuery } from '../../store/features/coursesSlice'
 import { level, period, semester } from '../../constants/filters'
 import Button from '../atom/Button'
-import { useAddRegisterCourseMutation} from '../../store/features/registeredCourseSlice'
+import { useUpdateRegisterCourseMutation } from '../../store/features/registeredCourseSlice'
 import DisplayRegisteredCourses from '../molecules/DisplayRegisteredCourses'
+import { useParams } from "react-router-dom"
 
-function CourseRegistration() {
-  const [datas, setDatas] = useState([])
+function EditRegisteredCourse() {
+  const {id: registeredCourseId} = useParams()
+  // const [datas, setDatas] = useState([])
   const {
     isError,
     isLoading,
@@ -21,7 +23,7 @@ function CourseRegistration() {
     level: "",
     period: ""
   }
-  const [addRegisterCourse, ] = useAddRegisterCourseMutation()
+  const [updateRegisteredCourse, ] = useUpdateRegisterCourseMutation()
   const [formValues, setFormValues] = useState(initialData)
   const handleSubmit = async(e)=>{
     e.preventDefault()
@@ -29,9 +31,17 @@ function CourseRegistration() {
       if (!formValues.course && !formValues.level && !formValues.period && !formValues.semester) {
         throw new Error("please fill your details")
       }
-      const registeredCourses = await addRegisterCourse({course: formValues.course, level: formValues.level, period: formValues.period, semester: formValues.semester})
-      console.log(registeredCourses);
-      console.log(formValues.course, formValues.level, formValues.period, formValues.semester);
+      // const updateRegisteredCourses = await updateRegisteredCourse(
+      //   {
+      //     _id: registeredCourseId,
+      //     course: formValues.course, 
+      //     level: formValues.level, 
+      //     period: formValues.period, 
+      //     semester: formValues.semester
+      //   }
+      // )
+      // console.log(updateRegisteredCourses);
+      console.log(registeredCourseId, formValues.course, formValues.level, formValues.period, formValues.semester);
       setFormValues(initialData)
       
     } catch (error) {
@@ -55,17 +65,13 @@ function CourseRegistration() {
         [e.target.name]: e.target.value,
       };
   });
-  let content;
   return (
-    <DashboardTemplate>
-      <main className=' bg-slate-200 md:w-4/5 p-5 h-[90vh] overflow-y-scroll'>
-        {/* <Filter useLazy={useLazyGetAllRegisteredCoursesQuery}/> */}
-         <h1>Course registration</h1>
-         <div className="register-course-wrapper">
-          <form action="" className=''>
+    <MainWrapper>
+      <div className="register-course-wrapper">
+          <form action="" className='flex flex-col items-center justify-center mt-20'>
             <label htmlFor="course">
-                   courses: &nbsp;
-                    <select name="course" value={formValues.course} onChange={handleChange} >
+                   courses: <br/>
+                    <select name="course" value={formValues.course} onChange={handleChange} className="md:w-full lg:w-[500px] mb-3" >
                         <option value="">select course</option>
 
                       {
@@ -73,21 +79,18 @@ function CourseRegistration() {
                         : (
                           courses.map(course=>{ 
                            const {_id: id} = course 
-                           // console.log(course);
                             return <option  key={id} value={id}>{course.name}</option>
                           }) 
-                          
                         )
-                        
-                     }
+                      }
 
                   
                 </select> 
                    
             </label>
             <label htmlFor="semester">
-                   Semester: &nbsp;
-                   <select onChange={handleChange} name="semester" value={formValues.semester}>
+                   Semester: <br/>
+                   <select onChange={handleChange} className="w-[500px] mb-3" name="semester" value={formValues.semester}>
                           <option value="">select semester</option>
                      {
                        semester.map(semester=>{ 
@@ -97,8 +100,8 @@ function CourseRegistration() {
                    </select>
             </label>
             <label htmlFor="level">
-                   Level: &nbsp;
-                   <select onChange={handleChange} name="level" value={formValues.level}>
+                   Level: <br/>
+                   <select onChange={handleChange} className="w-[500px] mb-3" name="level" value={formValues.level}>
                         <option value="">select level</option>
                      {
                        level.map(level=>{ 
@@ -108,8 +111,8 @@ function CourseRegistration() {
                    </select>
             </label>
             <label htmlFor="period">
-                Period: &nbsp;
-                <select onChange={handleChange} name="period" value={formValues.period}>
+                Period: <br/>
+                <select onChange={handleChange} className="w-[500px] mb-3" name="period" value={formValues.period}>
                   <option value="">select period</option>
                   {
                     period.map(period=>{ 
@@ -119,14 +122,12 @@ function CourseRegistration() {
                 </select>
             </label>
             <Button onClick={handleSubmit} className="bg-[--blue-gray-3] text-white p-1 rounded-sm">
-              Submit
+              Update Registered Course
             </Button>
           </form>
-         </div>
-         <DisplayRegisteredCourses/>
-      </main>
-    </DashboardTemplate>
+         </div>   
+    </MainWrapper>
   )
 }
 
-export default CourseRegistration
+export default EditRegisteredCourse

@@ -6,7 +6,8 @@ const resultSlice = apiSlice.injectEndpoints({
             query: ()=> "/result/single"
         }),
         getAllResult: builder.query({
-            query: ()=> "/result"
+            query: (searchQuery)=> `/result?${searchQuery}`
+            // query: ()=> `/result?search=2343`
         }),
     })
 })

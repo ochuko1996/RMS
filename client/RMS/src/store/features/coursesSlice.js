@@ -5,7 +5,8 @@ const coursesSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getCourses: builder.query({
             query: ()=> "/courses",
-            providesTags: ["courses"]
+            transformResponse: res => res.sort((a,b)=> a.name.localeCompare(b.name)),
+            providesTags: ["courses"],
         }),
         addCourse: builder.mutation({
             query: course => ({

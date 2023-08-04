@@ -5,12 +5,16 @@ export const registeredCourseSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getRegisteredCourses: builder.query({
             query:()=> '/register-course',
-            providesTags: ["courses"]
+            providesTags: ["courses"],
+            transformResponse: res => res.sort((a,b)=> b._id.toString() - a._id.toString())
+
 
         }),
         getAllRegisteredCourses: builder.query({
             query:(params)=> `/register-course/admin?${params}`,
-            providesTags: ["courses"]
+            providesTags: ["courses"],
+            transformResponse: res => res.sort((a,b)=> b - a)
+
         }),
         addRegisterCourse: builder.mutation({
             query: course => ({
@@ -22,7 +26,7 @@ export const registeredCourseSlice = apiSlice.injectEndpoints({
         }),
         updateRegisterCourse: builder.mutation({
             query: course => ({
-                url: `/register-course/course._id`,
+                url: `/register-course/${course.id}`,
                 method: 'PATCH',
                 body: course
             }),
@@ -30,9 +34,8 @@ export const registeredCourseSlice = apiSlice.injectEndpoints({
         }),
         deleteRegisterCourse: builder.mutation({
             query: ({id}) => ({
-                url: `/register-course/id`,
+                url: `/register-course/${id}`,
                 method: 'DELETE',
-                body: id
             }),
             invalidatesTags: ["courses"]
         }),

@@ -5,42 +5,42 @@ export const sideList = [
         img: "",
         title: "Student",
         link: '/students',
-        isAdmin: true
+        roles: [1111]
     },
     {
         id: 2,
         img: "",
         title: "Courses",
         link: '/courses',
-        isAdmin: true  
+        roles: [1111] 
     },
     {
         id: 3,
         img: "",
         title: "Department",
         link: '/department',
-        isAdmin: true   
+        roles: [1111]   
     },
     {
         id: 4,
         img: "",
         title: "Assessment",
         link: '/assessment',
-        isAdmin: true   
+        roles: [1111]   
     },
     {
         id: 5,
         img: "",
         title: "Result",
         link: '/result',
-        isAdmin: true   
+        roles: [1111, 1000]   
     },
     {
         id: 6,
         img: "",
         title: "Course Registration",
         link: '/course_registration',
-        isAdmin: false
+        roles: [1000]
     },
     
 ]

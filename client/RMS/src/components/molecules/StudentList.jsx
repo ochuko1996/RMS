@@ -26,7 +26,7 @@ function StudentList() {
               : 
               (
                 // <h1>hello</h1>
-                studentData.map(student => <StudentListData key={student._id} student={student}/>)
+                studentData.filter(student => student.matricNo !== null).map(student => <StudentListData key={student._id} student={student}/>)
               )
 
         }

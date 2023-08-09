@@ -66,11 +66,11 @@ const getAllRegisteredCourses = async (req, res) => {
     // const RegExFunc = (query) => {
     //     return { $regex: new RegExp(query, "i") }
     // }
-    // const queryObject = {
-    // matricNo: { $ne: null }, // Include users with a non-null "matricNo"
-    // registeredCourses: { $exists: true, $not: { $size: 0 } } // Include users with registered courses
-    // }
-    const queryObject = {}
+    const queryObject = {
+        // matricNo: { $ne: null }, // Include users with a non-null "matricNo"
+        // registeredCourses: { $exists: true, $not: { $size: 0 } } // Include users with registered courses
+    }
+    // const queryObject = {}
     if (departmentName) {
         queryObject.departmentName = departmentName
     }
@@ -90,22 +90,32 @@ const getAllRegisteredCourses = async (req, res) => {
     if (schoolSession) {
         queryObject.schoolSession = schoolSession
     }
-    if (name) {
-        queryObject.name = name
-    }
+    // if (name) {
+    //     queryObject.name = name
+    // }
+   
     try {
-
-        const registeredCourses = await CourseReg.find(queryObject).populate("course").exec()
-        // const registeredCourses = await CourseReg.find(queryObject)
-        //     .populate({
-        //         path: "registeredCourses",
-        //         populate: {
-        //             path: "course",
-        //             model: "Courses"
-        //         }
-        //     })
-        // .populate("department")
-        console.log(registeredCourses);
+        let registeredCourses
+        if (name) {
+            // Add the "name" filter to the populate query using the "match" option
+            const populatedQuery = {
+                path: "course",
+                model: "Courses",
+                match: { name: { $regex: new RegExp(name, "i") } } // Case-insensitive match on the "name" field in the Courses collection
+                // match: { name: name } // Case-insensitive match on the "name" field in the Courses collection
+            };
+            registeredCourses = await CourseReg.find(queryObject)
+                .populate(populatedQuery)
+                .exec()
+                console.log(registeredCourses);
+        } else {
+            registeredCourses = await CourseReg.find(queryObject).populate({
+                path: "course",
+                model: "Courses"
+            })
+            .exec()
+            console.log(registeredCourses);
+        }
         // check for any existing Registered Courses
         if (!registeredCourses || registeredCourses.length === 0) return res.status(StatusCodes.NOT_FOUND).json("no registered courses found")
 

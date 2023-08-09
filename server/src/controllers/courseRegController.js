@@ -90,32 +90,13 @@ const getAllRegisteredCourses = async (req, res) => {
     if (schoolSession) {
         queryObject.schoolSession = schoolSession
     }
-    // if (name) {
-    //     queryObject.name = name
-    // }
    
     try {
-        let registeredCourses
-        if (name) {
-            // Add the "name" filter to the populate query using the "match" option
-            const populatedQuery = {
-                path: "course",
-                model: "Courses",
-                match: { name: { $regex: new RegExp(name, "i") } } // Case-insensitive match on the "name" field in the Courses collection
-                // match: { name: name } // Case-insensitive match on the "name" field in the Courses collection
-            };
-            registeredCourses = await CourseReg.find(queryObject)
-                .populate(populatedQuery)
-                .exec()
-                console.log(registeredCourses);
-        } else {
-            registeredCourses = await CourseReg.find(queryObject).populate({
+        const registeredCourses = await CourseReg.find(queryObject).populate({
                 path: "course",
                 model: "Courses"
             })
             .exec()
-            console.log(registeredCourses);
-        }
         // check for any existing Registered Courses
         if (!registeredCourses || registeredCourses.length === 0) return res.status(StatusCodes.NOT_FOUND).json("no registered courses found")
 
@@ -127,6 +108,70 @@ const getAllRegisteredCourses = async (req, res) => {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong ")
     }
 }
+// const getAllRegisteredCourses = async (req, res) => {
+//     const { departmentName, unit, name, semester, period, level, schoolSession } = req.query
+//     // const RegExFunc = (query) => {
+//     //     return { $regex: new RegExp(query, "i") }
+//     // }
+//     const queryObject = {
+//         // matricNo: { $ne: null }, // Include users with a non-null "matricNo"
+//         // registeredCourses: { $exists: true, $not: { $size: 0 } } // Include users with registered courses
+//     }
+//     // const queryObject = {}
+//     if (departmentName) {
+//         queryObject.departmentName = departmentName
+//     }
+//     if (unit) {
+//         queryObject.unit = unit
+//     }
+//     if (semester) {
+//         queryObject.semester = semester
+//     }
+//     if (period) {
+//         // queryObject.period = RegExFunc(period)
+//         queryObject.period = period
+//     }
+//     if (level) {
+//         queryObject.level = level
+//     }
+//     if (schoolSession) {
+//         queryObject.schoolSession = schoolSession
+//     }
+   
+//     try {
+//         let registeredCourses
+//         if (name) {
+//             // Add the "name" filter to the populate query using the "match" option
+//             const populatedQuery = {
+//                 path: "course",
+//                 model: "Courses",
+//                 match: { name: { $regex: new RegExp(name, "i") } } // Case-insensitive match on the "name" field in the Courses collection
+//                 // match: { name: name } // Case-insensitive match on the "name" field in the Courses collection
+//             };
+//             registeredCourses = await CourseReg.find(queryObject)
+//                 .populate(populatedQuery)
+//                 .exec()
+//                 // registeredCourses.filter(course=> course.course && course.course.name === name)
+//                 console.log(registeredCourses);
+//         } else {
+//             registeredCourses = await CourseReg.find(queryObject).populate({
+//                 path: "course",
+//                 model: "Courses"
+//             })
+//             .exec()
+//             console.log(registeredCourses);
+//         }
+//         // check for any existing Registered Courses
+//         if (!registeredCourses || registeredCourses.length === 0) return res.status(StatusCodes.NOT_FOUND).json("no registered courses found")
+
+//         // return registered courses
+//         res.status(StatusCodes.OK).json(registeredCourses)
+
+//     } catch (error) {
+//         console.error(error);
+//         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong ")
+//     }
+// }
 
 const getRegisteredCourse = async (req, res) => {
     // student id

@@ -82,11 +82,25 @@ aside li:hover{
 .modal-wrapper{
     background-color: rgba(0, 0, 0, 0.782);
 }
+.bg-wrapper{
+    position: relative;
+    background-image: url(/bg.png);
+    background-position: center;
+    background-size: 100% 100% ;
+    background-repeat: no-repeat;
+}
+.overlay.modal-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 .authWrapper{
-    background-image: url(./assets/students_09.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-image: url(./assets/students_09.jpg);
 }
 /* .register-course-wrapper{
     background-color: rgba(0, 0, 0, 0.782);

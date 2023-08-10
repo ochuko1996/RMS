@@ -40,12 +40,7 @@ function AddAssessment({assessment}) {
             createdBy,
             matricNo: matricNo
           })
-        console.log(newAssessment);
-        console.log({
-          classWork: formValues.classWork, 
-          exam: formValues.exam, 
-          registeredCourse: course
-        });
+        
         setFormValues(intialState)
         setSent(true)
       }
@@ -73,6 +68,7 @@ function AddAssessment({assessment}) {
                 className="rounded-sm lg:mr- p-1 w-1/5"
                 placeholder={"30"}
                 maxLength={"2"}
+                max={"30"}
                 value={formValues.classWork}
                 
                 >

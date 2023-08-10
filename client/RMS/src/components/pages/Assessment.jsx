@@ -19,7 +19,7 @@ function Assessment() {
     <DashboardTemplate>
         <main className=' bg-slate-200 md:w-4/5 p-5 h-[90vh] overflow-y-scroll'>
           <Filter useGet={useGetAllRegisteredCoursesQuery} filteredAssessmentData={filteredAssessmentData}/>
-          <h1 className='font-bold text-center mb-5'>Enter Assessment</h1>
+          <h1 className='font-bold text-center mt-5 mb-5'>Enter Assessment</h1>
          {/* { [...Array(50).keys()].map((i) => <AddAssessment key={i}/>) } */}
          {
             (

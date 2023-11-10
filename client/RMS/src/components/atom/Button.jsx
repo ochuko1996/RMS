@@ -1,18 +1,25 @@
-import React from 'react'
-
-function Button({children, className, onClick, value, onchange, type, disabled}) {
+function Button({
+  children,
+  className,
+  onClick,
+  value,
+  onchange,
+  type,
+  disabled,
+}) {
   return (
-    <button 
-        className={className} 
-        onClick={onClick}
-        value={value}
-        onChange={onchange}
-        type={type}
-        disabled={disabled}
+    <button
+      className={className}
+      onClick={onClick}
+      value={value}
+      onChange={onchange}
+      type={type}
+      disabled={disabled}
     >
-            {children}
+      {children}
     </button>
-  )
+  );
 }
 
-export default Button
+export default Button;
+  

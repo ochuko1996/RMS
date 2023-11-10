@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from "../atom/Button"
@@ -11,7 +11,7 @@ import Welcome from "../molecules/Welcome"
 function SignUp() {
   const [showModal, setShowModal] = useState(false)
   const [isStudent, setIsStudent] = useState(true)
-  const [signup, {isLoading: loading, isError, error}] = useSignupMutation()
+  const [signup ] = useSignupMutation()
   const {
     isLoading,
     data: departments
@@ -132,7 +132,7 @@ function SignUp() {
                       isLoading ? content = <option value="csc" disabled>select department</option>
                       :(
 
-                        departments.map((dept, index)=>{
+                        departments.map((dept)=>{
                           return <option key={dept._id} value={dept._id} className="text-black">{dept.departmentName}</option>
                         })
                       )

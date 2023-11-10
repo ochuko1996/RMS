@@ -1,5 +1,5 @@
 import MainWrapper from "../molecules/MainWrapper"
-import { useUpdateUserMutation } from "../../store/features/userSlice"
+import { useUpdateUserMutation, } from "../../store/features/userSlice"
 import { useGetDepartmentQuery } from "../../store/features/departmentSlice"
 import { useState, useEffect } from "react"
 import { ToastContainer, toast } from 'react-toastify';

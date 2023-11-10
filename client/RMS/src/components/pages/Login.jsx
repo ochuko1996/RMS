@@ -1,20 +1,28 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../atom/Button"
 import Input from "../atom/Input"
-import useAuth from "../../hooks/useAuth"
+// import useAuth from "../../hooks/useAuth"
 import {FaEye, FaEyeSlash} from 'react-icons/fa'
 import { useLoginMutation } from "../../store/features/authApiSlice"
 import { useDispatch } from "react-redux"
 import { setCredentials } from "../../store/api/authSlice"
-const LOGIN_URL = 'auth/login'
+// import { useGetGoogleUrlQuery } from "../../store/features/googleOauthSlice"
+// const LOGIN_URL = 'auth/login'
 function Auth() {
   const [showPwd, setShowPwd] = useState(false)
-  const {setAuth, auth, persist, setPersist} = useAuth()
+  // const {setAuth, auth, persist, setPersist} = useAuth()
+  const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist")) || false )
   const navigate = useNavigate()
-  const [login, {isLoading}] = useLoginMutation()
+  const [login] = useLoginMutation()
   const dispatch = useDispatch()
   const from = location.state?.pathname || "/";
+  // const {
+  //   isLoading: loadingGoogleUrl,
+  //   data: googleUrl
+  // } = useGetGoogleUrlQuery()
+  // const fetchedGoogleUrl = loadingGoogleUrl ? '' : googleUrl?.url
+  // console.log(fetchedGoogleUrl);
   const initialData = {
     email: "",
     password: "",
@@ -68,9 +76,7 @@ function Auth() {
     <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper">
         <div className="md:w-1/4 lg:w-1/2"></div>
         <div className="md:w-2/3 lg:w-1/2 h-[100vh] flex flex-col items-center justify-center bg-[transparent]">
-          {/* <h1 className="mb-5">
-            Login
-          </h1> */}
+         
          <form action="" method="post" onSubmit={handleSubmit} className="authForm">
             <Input 
               type="email" 
@@ -85,24 +91,32 @@ function Auth() {
             </Input>
             <span className="relative">
              {showPwd ? <FaEyeSlash onClick={()=> setShowPwd(!showPwd)} className="absolute top-9 right-1 cursor-pointer"/>: <FaEye onClick={()=> setShowPwd(!showPwd)} className="absolute top-9 right-1 cursor-pointer"/>}
-              <Input 
+              <Input
                 type={showPwd ? "text" : "password"} 
                 placeholder="*******" 
                 name="password" 
                 className="authInput rounded-sm" 
                 value={formValues.password}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 Password: 
               </Input>
             </span>
-            {/* <div>
+            <div className="flex">
               <Input 
-                type="checkbox" name="persist" id="persist" onChange={togglePersist} checked={persist}   /> Keep me login
-            </div> */}
+                type="checkbox" name="persist" id="persist" onChange={togglePersist} checked={persist}   /> 
+                <span className="ml-1">
+                  Keep me login
+                </span>
+            </div>
             <div>
               <Button type="submit" className="w-full bg-[--blue-gray-3] rounded-sm h-10 text-white mt-5">
                 Login
               </Button>
+              {/* <Button 
+                disabled={loadingGoogleUrl}
+                onClick={()=> {window.location.href = fetchedGoogleUrl}}
+              >Login in with Google</Button> */}
             </div>
             <p className="mt-2">Have an account? <Link to="/signup">Sign Up</Link></p>
           </form>

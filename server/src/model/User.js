@@ -36,13 +36,7 @@ const UserSchema = new Schema({
             ref: "CourseReg"
         }
     ],
-    result: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Assessment"
-        }
-    ],
-    refreshToken: String,
+     refreshToken: String,
     roles: {
         student: {
             type: Number,

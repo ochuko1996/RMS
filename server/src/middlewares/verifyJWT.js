@@ -10,7 +10,7 @@ const verifyJWT =  (req, res, next)=>{
         token,
         process.env.ACCESS_TOKEN_SECRET,
         (err, decoded)=> {
-            console.log(err);
+            // console.log(err);
             if(err) return res.sendStatus(StatusCodes.FORBIDDEN)
             req.user = decoded.UserInfo
             req.roles = decoded.UserRole 

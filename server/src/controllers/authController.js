@@ -11,12 +11,7 @@ const register = async (req, res)=>{
 
     // find matric no
     const checkMatricNo = await User.findOne({matricNo: matricNo})
-    // check for duplicate matric no
-    // if (checkMatricNo === null) {
-    //    return; 
-    // } else if (checkMatricNo) {
-    //     return res.status(StatusCodes.CONFLICT).json(`user with Matric No: ${checkMatricNo} already exist`)
-    // }
+    
     if (checkMatricNo !== null && checkMatricNo.matricNo !== null) {
        return res.status(StatusCodes.CONFLICT).json(`user with Matric No: ${checkMatricNo} already exist`)
     } 
@@ -46,11 +41,10 @@ const login = async (req, res)=>{
     // find user
     const user = await User.findOne({email})
 
-    //COMPARE PAYLOAD PASSWORD WITH HASHED PASSWORD
-    const comparePwd = bcrypt.compare(password, user.password)
-    
     // check if user exist
     if(user){
+        //COMPARE PAYLOAD PASSWORD WITH HASHED PASSWORD
+        const comparePwd = await bcrypt.compare(password, user.password)
         if(!comparePwd) res.status(StatusCodes.UNAUTHORIZED).json("incorrect password")
         if (comparePwd){
             const roles = Object.values(user.roles).filter(Boolean)
@@ -74,7 +68,7 @@ const login = async (req, res)=>{
             // console.log(refreshToken);
             try {
                 const result = await user.save()
-                console.log(result);
+                // console.log(result);
                 
             } catch (error) {
                 console.log(error);
@@ -87,7 +81,7 @@ const login = async (req, res)=>{
             }})
         }
     } else {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("Something went wrong")
+        return res.status(StatusCodes.UNAUTHORIZED).json("unauthorized")
     }
 }
 

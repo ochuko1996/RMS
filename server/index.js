@@ -5,6 +5,8 @@ const app = express()
 // dependencies
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const helmet = require('helmet')
+const {rateLimit} = require('express-rate-limit')
 
 // utils
 const connectDB = require('./src/db/connect')
@@ -26,6 +28,16 @@ const PORT = process.env.PORT | 4500
 // and fetch cookies credentials requirement
 app.use(require('./src/middlewares/credentials'))
  
+// helmet 
+app.use(helmet())
+// Rate Limiter
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, //15 minutes
+    limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+    standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+})
+app.use(limiter)
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions))
 

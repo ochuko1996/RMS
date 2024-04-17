@@ -1,18 +1,18 @@
 import MainWrapper from "../molecules/MainWrapper"
-import { useUpdateUserMutation, } from "../../store/features/userSlice"
+import { useUpdateUserMutation, useGetUserQuery } from "../../store/features/userSlice"
 import { useGetDepartmentQuery } from "../../store/features/departmentSlice"
 import { useState, useEffect } from "react"
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+  import 'react-toastify/dist/ReactToastify.css';
 import Button from "../atom/Button"
-import {Link, useParams} from "react-router-dom"
+import {Link, useNavigate, useParams} from "react-router-dom"
 import Input from "../atom/Input"
 
 function EditStudent() {
   // const [isStudent, setIsStudent] = useState(true)
-  const [ updateUser, {isLoading: loading, isError, error}] = useUpdateUserMutation()
-  const id = useParams()
-  console.log(id);
+  const navigate = useNavigate()
+  const [ updateUsers, {isLoading: loading}] = useUpdateUserMutation()
+  const paramsItem = useParams()
   const {
     isLoading,
     data: departments
@@ -30,26 +30,40 @@ function EditStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-      const response = await updateUser({
-        _id: id,
+    const updatedUser = {
+        _id: paramsItem.id,
         matricNo: formValues?.matricNo,
         firstName: formValues.firstName, 
         lastName: formValues.lastName, 
         email: formValues.email, 
         password: formValues.password, 
         department: formValues?.department
-      })
-      // console.log(signUp)
-      setFormValues(initialData)
+      }
+      const response = await updateUsers(updatedUser)
+      console.log(response)
       
       // Error handling
       if(!response?.error?.error?.status === 500) {
         throw new Error("No server response")
       } else if (response?.error?.status === 409){
         toast("user or email already exist")
+      }else if(response?.error?.status === 403){
+        toast(response?.error?.data)
       }
-    
-  };
+      setFormValues(initialData)
+      navigate('/students')
+  };  
+  const {data} = useGetUserQuery()
+  const fetchedValues = data.filter(item => item._id === paramsItem.id)[0]
+  useEffect(()=>{
+    setFormValues(prev =>({
+      ...prev,
+        matricNo: fetchedValues?.matricNo,
+        firstName: fetchedValues?.firstName, 
+        lastName: fetchedValues?.lastName, 
+        email: fetchedValues?.email, 
+    }))
+  },[])
   const handleChange = (e) =>
     setFormValues((prev) => {
       return {
@@ -57,9 +71,10 @@ function EditStudent() {
         [e.target.name]: e.target.value,
       };
     });
+    let content;
   return (
     <MainWrapper>
-        <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper">
+        {/* <main className="flex flex-col md:flex-row justify-between bg-slate-700 authWrapper"> */}
           <ToastContainer/>
             <div className="md:w-1/2"></div>
             <div className="md:w-1/2 h-[100vh] flex flex-col items-center justify-center bg-[transparent]">
@@ -101,16 +116,6 @@ function EditStudent() {
                 >
                   Email:  
                 </Input>
-                <Input 
-                  type={"password"} 
-                  placeholder={"*******"} 
-                  name={"password"} 
-                  className="authInput rounded-sm" 
-                  value={formValues.password} 
-                  onChange={handleChange}
-                >
-                  Password: 
-                </Input>
                 <label>
                   Department:
                     <select name="department" value={formValues.department} onChange={handleChange}>
@@ -133,7 +138,7 @@ function EditStudent() {
                 </div>
               </form>
             </div>
-        </main>
+        {/* </main> */}
     </MainWrapper>
   )
 }

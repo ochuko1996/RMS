@@ -3,6 +3,8 @@ import Input from '../atom/Input'
 import {VscPass} from 'react-icons/vsc'
 import Button from '../atom/Button'
 import { useAddAssessmentMutation } from '../../store/features/assessmentSlice'
+import { toast,ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 // import { useGetAssessmentsQuery } from '../../store/features/assessmentSlice'
 // imort {}
 function AddAssessment({assessment}) {
@@ -22,38 +24,34 @@ function AddAssessment({assessment}) {
       }
     })
   }
-  const course = assessment._id
-  const createdBy = assessment.createdBy
-  const matricNo = assessment.matricNo
-  console.log();
+  const course = assessment?._id
+  const createdBy = assessment?.createdBy
+  const matricNo = assessment?.matricNo
   const handleSubmit = async(e)=>{
     e.preventDefault()
-    try {
-      if (!formValues.classWork && !formValues.exam) {
-        alert("field shouldn't be empty")
-      }else {
-        const newAssessment = await addAssessment(
-          {
-            classWork: formValues.classWork,
-            exam: formValues.exam, 
-            registeredCourse: course,
-            createdBy,
-            matricNo: matricNo
-          })
-        
-        setFormValues(intialState)
-        setSent(true)
-      }
-    } catch (error) {
-      console.log(error);
-      if (error.data.code === 409) {
-        throw new Error("course already marked")
-      }
+    const newAssessment = await addAssessment({
+        classWork: formValues.classWork,
+        exam: formValues.exam, 
+        registeredCourse: course,
+        createdBy,
+        matricNo: matricNo
+    })
+    if (!formValues.classWork && !formValues.exam) {
+      toast("field can't be empty")
+      // console.log(isError, error);
     }
+    else if(newAssessment?.error?.status === 409){
+      // console.log(error.error.status);
+      toast(newAssessment?.error?.data)
+    }
+    
+    setFormValues(intialState)
+    setSent(true)
   }
   let content;
   return (
     <div className=" mb-3  ">
+      <ToastContainer/>
             <form method='post' className='flex items-center border-b border-[--blue-gray-1] p-1'>
               <p className="lg:mr- capitalize w-1/5">
                 Mat_no: {assessment ? assessment.matricNo : 223232}

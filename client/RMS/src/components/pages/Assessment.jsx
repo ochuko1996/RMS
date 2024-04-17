@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
-import DashboardTemplate from '../templates/dashboardTemplate'
 
 import AddAssessment from '../molecules/AddAssessments'
 import Filter from '../molecules/filter'
 import { useGetAllRegisteredCoursesQuery,  } from '../../store/features/registeredCourseSlice'
+import MainWrapper from '../molecules/MainWrapper'
 function Assessment() {
     const [useGetall, setUseGetall] = useState([])
     let content;
@@ -16,24 +16,21 @@ function Assessment() {
     
 
   return (
-    <DashboardTemplate>
-        <main className=' bg-slate-200 md:w-4/5 p-5 h-[90vh] overflow-y-scroll'>
-          <Filter useGet={useGetAllRegisteredCoursesQuery} filteredAssessmentData={filteredAssessmentData}/>
-          <h1 className='font-bold text-center mt-5 mb-5'>Enter Assessment</h1>
-         {/* { [...Array(50).keys()].map((i) => <AddAssessment key={i}/>) } */}
-         {
-            (
+    <MainWrapper>
+        <Filter useGet={useGetAllRegisteredCoursesQuery} filteredAssessmentData={filteredAssessmentData}/>
+        <h1 className='font-bold text-center mt-5 mb-5'>Enter Assessment</h1>
+      {
+          (
 
-              useGetall.map((assessment)=> {
-                // console.log(assessment._id);
-                return <AddAssessment key={assessment._id} assessment={assessment} />
-              })
-            )
+            useGetall.map((assessment)=> {
+              // console.log(assessment._id);
+              return <AddAssessment key={assessment._id} assessment={assessment} />
+            })
+          )
 
-         }
-          
-        </main> 
-    </DashboardTemplate>
+      }
+    </MainWrapper>
+
   )
 }
 

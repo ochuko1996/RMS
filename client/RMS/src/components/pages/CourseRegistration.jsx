@@ -5,6 +5,7 @@ import { level, period, semester } from '../../constants/filters'
 import Button from '../atom/Button'
 import { useAddRegisterCourseMutation} from '../../store/features/registeredCourseSlice'
 import DisplayRegisteredCourses from '../molecules/DisplayRegisteredCourses'
+import MainWrapper from '../molecules/MainWrapper'
 
 function CourseRegistration() {
   const [datas, setDatas] = useState([])
@@ -57,75 +58,72 @@ function CourseRegistration() {
   });
   let content;
   return (
-    <DashboardTemplate>
-      <main className=' bg-slate-200 md:w-4/5 p-5 h-[90vh] overflow-y-scroll'>
-        {/* <Filter useLazy={useLazyGetAllRegisteredCoursesQuery}/> */}
-         <h1>Course registration</h1>
-         <div className="register-course-wrapper">
-          <form action="" className=''>
-            <label htmlFor="course">
-                   courses: &nbsp;
-                    <select name="course" value={formValues.course} onChange={handleChange} >
-                        <option value="">select course</option>
+    <MainWrapper>
+      <h1>Course registration</h1>
+      <div className="register-course-wrapper">
+       <form action="" className=''>
+         <label htmlFor="course">
+                courses: &nbsp;
+                 <select name="course" value={formValues.course} onChange={handleChange} >
+                     <option value="">select course</option>
 
-                      {
-                        isLoading ? <option>loading...</option>
-                        : (
-                          courses.map(course=>{ 
-                           const {_id: id} = course 
-                           // console.log(course);
-                            return <option  key={id} value={id}>{course.name}</option>
-                          }) 
-                          
-                        )
-                        
-                     }
+                   {
+                     isLoading ? <option>loading...</option>
+                     : (
+                       courses.map(course=>{ 
+                        const {_id: id} = course 
+                        // console.log(course);
+                         return <option  key={id} value={id}>{course.name}</option>
+                       }) 
+                       
+                     )
+                     
+                  }
 
-                  
-                </select> 
-                   
-            </label>
-            <label htmlFor="semester">
-                   Semester: &nbsp;
-                   <select onChange={handleChange} name="semester" value={formValues.semester}>
-                          <option value="">select semester</option>
-                     {
-                       semester.map(semester=>{ 
-                         return <option  key={semester.id} value={semester.semester}>{semester.semester}</option>
-                        })
-                     }
-                   </select>
-            </label>
-            <label htmlFor="level">
-                   Level: &nbsp;
-                   <select onChange={handleChange} name="level" value={formValues.level}>
-                        <option value="">select level</option>
-                     {
-                       level.map(level=>{ 
-                         return <option  key={level.id} value={level.level}>{level.level}</option>
-                        })
-                     }
-                   </select>
-            </label>
-            <label htmlFor="period">
-                Period: &nbsp;
-                <select onChange={handleChange} name="period" value={formValues.period}>
-                  <option value="">select period</option>
+               
+             </select> 
+                
+         </label>
+         <label htmlFor="semester">
+                Semester: &nbsp;
+                <select onChange={handleChange} name="semester" value={formValues.semester}>
+                       <option value="">select semester</option>
                   {
-                    period.map(period=>{ 
-                      return <option key={period.id} defaultValue={period.period[0]}  value={period.period}>{period.period}</option>
-                    })
+                    semester.map(semester=>{ 
+                      return <option  key={semester.id} value={semester.semester}>{semester.semester}</option>
+                     })
                   }
                 </select>
-            </label>
-            <Button onClick={handleSubmit} className="bg-[--blue-gray-3] text-white p-1 rounded-sm">
-              Submit
-            </Button>
-          </form>
-         </div>
-         <DisplayRegisteredCourses/>
-      </main>
-    </DashboardTemplate>
+         </label>
+         <label htmlFor="level">
+                Level: &nbsp;
+                <select onChange={handleChange} name="level" value={formValues.level}>
+                     <option value="">select level</option>
+                  {
+                    level.map(level=>{ 
+                      return <option  key={level.id} value={level.level}>{level.level}</option>
+                     })
+                  }
+                </select>
+         </label>
+         <label htmlFor="period">
+             Period: &nbsp;
+             <select onChange={handleChange} name="period" value={formValues.period}>
+               <option value="">select period</option>
+               {
+                 period.map(period=>{ 
+                   return <option key={period.id} defaultValue={period.period[0]}  value={period.period}>{period.period}</option>
+                 })
+               }
+             </select>
+         </label>
+         <Button onClick={handleSubmit} className="bg-[--blue-gray-3] text-white p-1 rounded-sm">
+           Submit
+         </Button>
+       </form>
+      </div>
+      <DisplayRegisteredCourses/>
+    </MainWrapper>
   )
 }
 

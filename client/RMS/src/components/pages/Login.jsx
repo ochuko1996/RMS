@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../atom/Button"
 import Input from "../atom/Input"
+import { toast,ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 // import useAuth from "../../hooks/useAuth"
 import {FaEye, FaEyeSlash} from 'react-icons/fa'
 import { useLoginMutation } from "../../store/features/authApiSlice"
@@ -9,6 +11,8 @@ import { useDispatch } from "react-redux"
 import { setCredentials } from "../../store/api/authSlice"
 // import { useGetGoogleUrlQuery } from "../../store/features/googleOauthSlice"
 // const LOGIN_URL = 'auth/login'
+console.log(toast.isActive("is active"));
+
 function Auth() {
   const [showPwd, setShowPwd] = useState(false)
   // const {setAuth, auth, persist, setPersist} = useAuth()
@@ -17,12 +21,7 @@ function Auth() {
   const [login] = useLoginMutation()
   const dispatch = useDispatch()
   const from = location.state?.pathname || "/";
-  // const {
-  //   isLoading: loadingGoogleUrl,
-  //   data: googleUrl
-  // } = useGetGoogleUrlQuery()
-  // const fetchedGoogleUrl = loadingGoogleUrl ? '' : googleUrl?.url
-  // console.log(fetchedGoogleUrl);
+  
   const initialData = {
     email: "",
     password: "",
@@ -30,30 +29,33 @@ function Auth() {
   const [formValues, setFormValues] = useState(initialData);
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-        if (!formValues.email && !formValues.password) {
-          alert('please enter email and password')
-        }else if(formValues.email && formValues.password){
-          const userData = await login({email: formValues.email, password: formValues.password})
-          const accessToken = userData?.data?.user.accessToken
-          const roles = userData?.data?.user.roles
-          const firstName = userData?.data?.user?.user?.firstName
-          dispatch(setCredentials({accessToken, roles, firstName}))
-          navigate(from, {replace: true})
-          setFormValues(initialData.email= "", initialData.password="")
-        }
-    } catch (error) {
-        if(!error?.response) {
-          throw new Error("No server response")
-        } else if (error.response?.status === 400){
-          throw new Error("Missing Username or Password")
-        }else if (error.response?.status === 401){
-          throw new Error("Unauthorized")
-        }else{
-          throw new Error("Login Failed")
-        }
+
+    const userData = await login({email: formValues.email, password: formValues.password})
+    
+    
+    if (!formValues.email && !formValues.password) {
+      toast('please enter email and password')
+      return;
+    } 
+    // error handling
+    if(userData?.error?.status === 500) {
+      toast.error("No server response")
+    }else if (userData?.error?.status === 400){
+      toast.error("Missing Username or Password")
+    }else if (userData?.error?.status === 401){
+      toast.error(userData?.error?.data)
+      // console.log(toast());
+      // alert(userData?.error?.data)
+    }else{
+      toast("Login Failed")
     }
-  };
+    const accessToken = userData?.data?.user.accessToken
+    const roles = userData?.data?.user.roles
+    const firstName = userData?.data?.user?.user?.firstName
+    dispatch(setCredentials({accessToken, roles, firstName}))
+    navigate(from, {replace: true})
+    setFormValues(initialData.email= "", initialData.password="")
+  } 
   const handleChange = (e) => {
     setFormValues((prev) => {
       return {
@@ -121,6 +123,7 @@ function Auth() {
             <p className="mt-2">Have an account? <Link to="/signup">Sign Up</Link></p>
           </form>
         </div>
+        <ToastContainer/>
     </main>
   )
 }

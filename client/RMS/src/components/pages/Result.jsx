@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import DashboardTemplate from '../templates/dashboardTemplate'
+import { useState } from 'react'
 import { selectCurrentRoles } from '../../store/api/authSlice'
 import { useSelector } from 'react-redux'
 import { useGetAllResultQuery, useGetSingleResultQuery } from '../../store/features/results'
@@ -9,6 +8,7 @@ import queryString from 'query-string'
 import ResultHeader from '../molecules/ResultHeader'
 import AdminResult from '../organisms/AdminResult'
 import StudentResult from '../organisms/StudentResult'
+import MainWrapper from '../molecules/MainWrapper'
 
 function Result() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -165,13 +165,11 @@ function Result() {
 
   return (
     <ErrorBoundary>
-      <DashboardTemplate>
-        <main className=' bg-slate-200 md:w-4/5 p-5 h-[90vh] overflow-y-scroll'>
+      <MainWrapper>
           {
             content
           }
-        </main>
-      </DashboardTemplate>
+      </MainWrapper>
     </ErrorBoundary>
   )
 }

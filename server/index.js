@@ -56,6 +56,7 @@ app.use('/api/refresh', refreshToken)
 app.use('/api/logout', logout)
 app.use('/api/department', department)
 app.use('/api', googleOauthHandler)
+
 // JWT Verification Middleware
 app.use(require('./src/middlewares/verifyJWT'))
 // protected route

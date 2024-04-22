@@ -3,7 +3,8 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import {setCredentials, logOut} from './authSlice'
 // import { useDispatch } from "react-redux"
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://resultmanagementsystem-3cg8.onrender.com/api',
+    // baseUrl: 'https://resultmanagementsystem-3cg8.onrender.com/api',
+    baseUrl: 'http://localhost:4500/api',
     credentials: "include",
     prepareHeaders: (headers, {getState})=>{
         const token = getState().auth.token

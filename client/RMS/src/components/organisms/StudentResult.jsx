@@ -1,41 +1,31 @@
 import SingleResult from "../molecules/singleResult";
 
-function StudentResult({
-  loadingResult,
-  // checkForExistingSingleResult,
-  semesterData,
-  singleResult,
-}) {
-  console.log(semesterData);
+function StudentResult({ loadingResult, semesterData, singleResult }) {
   return (
     <section>
       {loadingResult ? (
         <p>loading...</p>
       ) : semesterData?.length > 0 ? (
         <>
-          {["one", "two", "three", "four", "five", "six"].map(
-            (semester, index) => {
-              // const semesterData = singleResult?.result;
-              const num = `${semester.charAt(0).toUpperCase()}${semester.slice(
-                1,
-                semester.length
-              )}`;
-              const semesterName = `semester${num}`;
-              const gpaName = `GPA_${num}`;
-              const semesterDataForCurrentSemester = semesterData.find((data) =>
-                data.hasOwnProperty(semesterName)
-              );
-              const semesterDataArray =
-                semesterDataForCurrentSemester[semesterName] || [];
-              const GPA = isNaN(semesterDataForCurrentSemester[gpaName])
-                ? "Not Available"
-                : semesterDataForCurrentSemester[gpaName];
-              console.log(
-                Number(GPA) === typeof NaN ? "HELLO" : "FALSE",
-                gpaName
-              );
-              return (
-                // semesterData && (
+          {["one", "two", "three", "four", "five", "six"].map((semester) => {
+            // const semesterData = singleResult?.result;
+            const num = `${semester.charAt(0).toUpperCase()}${semester.slice(
+              1,
+              semester.length
+            )}`;
+            const semesterName = `semester${num}`;
+            const gpaName = `GPA_${num}`;
+            const semesterDataForCurrentSemester = semesterData.find((data) =>
+              data.hasOwnProperty(semesterName)
+            );
+            const semesterDataArray =
+              semesterDataForCurrentSemester[semesterName] || [];
+            const GPA = isNaN(semesterDataForCurrentSemester[gpaName])
+              ? "Not Available"
+              : semesterDataForCurrentSemester[gpaName];
+
+            return (
+              semesterDataArray && (
                 <section
                   key={semester}
                   className="border border-[--blue-gray-2] p-2 mb-2"
@@ -47,10 +37,9 @@ function StudentResult({
                     {`Semester ${semester} GPA: ${GPA}`}
                   </p>
                 </section>
-                // )
-              );
-            }
-          )}
+              )
+            );
+          })}
           {singleResult?.cgpa && (
             <h1 className="text-2xl mt-5 font-bold">
               Cumulative Grade Point Average : {singleResult.cgpa || "-"}{" "}

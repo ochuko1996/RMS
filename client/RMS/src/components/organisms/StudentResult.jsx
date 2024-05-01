@@ -1,94 +1,59 @@
-// import { proptypes } from "react/prop-types";
 import SingleResult from "../molecules/singleResult";
+
 function StudentResult({
   loadingResult,
-  checkForExistingSingleResult,
-  semesterOne,
-  gpaOne,
-  semesterTwo,
-  gpaTwo,
-  semesterThree,
-  gpaThree,
-  semesterFour,
-  gpaFour,
-  semesterFive,
-  gpaFive,
-  semesterSix,
-  gpaSix,
+  // checkForExistingSingleResult,
+  semesterData,
   singleResult,
 }) {
-  console.log(checkForExistingSingleResult, semesterFour, semesterOne);
+  console.log(semesterData);
   return (
     <section>
-      {/* <ResultHeader /> */}
       {loadingResult ? (
         <p>loading...</p>
-      ) : // : singleResult.result[0].semesterOne && singleResult.result[0].semesterOne.length ? (
-      checkForExistingSingleResult.length > 0 ? (
+      ) : semesterData?.length > 0 ? (
         <>
-          {semesterOne.length > 0 ? (
-            <section className="border border-[--blue-gray-2] p-2 mb-2">
-              {semesterOne.map((data) => (
-                <SingleResult key={data._id} data={data} />
-              ))}
-              <p className="mt-4 font-bold">Semester One GPA: {gpaOne}</p>
-            </section>
-          ) : (
-            ""
+          {["one", "two", "three", "four", "five", "six"].map(
+            (semester, index) => {
+              // const semesterData = singleResult?.result;
+              const num = `${semester.charAt(0).toUpperCase()}${semester.slice(
+                1,
+                semester.length
+              )}`;
+              const semesterName = `semester${num}`;
+              const gpaName = `GPA_${num}`;
+              const semesterDataForCurrentSemester = semesterData.find((data) =>
+                data.hasOwnProperty(semesterName)
+              );
+              const semesterDataArray =
+                semesterDataForCurrentSemester[semesterName] || [];
+              const GPA = isNaN(semesterDataForCurrentSemester[gpaName])
+                ? "Not Available"
+                : semesterDataForCurrentSemester[gpaName];
+              console.log(
+                Number(GPA) === typeof NaN ? "HELLO" : "FALSE",
+                gpaName
+              );
+              return (
+                // semesterData && (
+                <section
+                  key={semester}
+                  className="border border-[--blue-gray-2] p-2 mb-2"
+                >
+                  {semesterDataArray.map((item) => (
+                    <SingleResult key={item._id} data={item} />
+                  ))}
+                  <p className="mt-4 font-bold">
+                    {`Semester ${semester} GPA: ${GPA}`}
+                  </p>
+                </section>
+                // )
+              );
+            }
           )}
-          {semesterTwo.length > 0 ? (
-            <section className="border border-[--blue-gray-2] p-2 mb-2">
-              {semesterTwo.map((data) => (
-                <SingleResult key={data._id} data={data} />
-              ))}
-              <p className="mt-4 font-bold">Semester Two GPA: {gpaTwo}</p>
-            </section>
-          ) : (
-            ""
-          )}
-          {semesterThree.length > 0 ? (
-            <section className="border border-[--blue-gray-2] p-2 mb-2">
-              {semesterThree.map((data) => (
-                <SingleResult key={data._id} data={data} />
-              ))}
-              <p className="mt-4 font-bold">Semester Three GPA: {gpaThree}</p>
-            </section>
-          ) : (
-            ""
-          )}
-          {semesterFour.length > 0 ? (
-            <section className="border border-[--blue-gray-2] p-2 mb-2">
-              {semesterFour.map((data) => (
-                <SingleResult key={data._id} data={data} />
-              ))}
-              <p className="mt-4 font-bold">Semester Four GPA: {gpaFour}</p>
-            </section>
-          ) : (
-            ""
-          )}
-          {semesterFive.length > 0 ? (
-            <section className="border border-[--blue-gray-2] p-2 mb-2">
-              {semesterFive.map((data) => (
-                <SingleResult key={data._id} data={data} />
-              ))}
-              <p className="mt-4 font-bold">Semester Five GPA: {gpaFive}</p>
-            </section>
-          ) : (
-            ""
-          )}
-          {semesterSix.length > 0 ? (
-            <section className="border border-[--blue-gray-2] p-2 mb-2">
-              {semesterSix.map((data) => (
-                <SingleResult key={data._id} data={data} />
-              ))}
-              <p className="mt-4 font-bold">Semester Six GPA: {gpaSix}</p>
-            </section>
-          ) : (
-            ""
-          )}
-          {checkForExistingSingleResult && (
+          {singleResult?.cgpa && (
             <h1 className="text-2xl mt-5 font-bold">
-              Cumulative Grade Point Average : {singleResult.cgpa}{" "}
+              Cumulative Grade Point Average : {singleResult.cgpa || "-"}{" "}
             </h1>
           )}
         </>
@@ -100,4 +65,5 @@ function StudentResult({
     </section>
   );
 }
+
 export default StudentResult;

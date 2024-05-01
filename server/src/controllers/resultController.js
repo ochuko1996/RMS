@@ -129,7 +129,7 @@ const getResult = async (req, res) => {
 
     // Calculate CGPA
     const cgpa = CGPA(cgpaPoints, cgpaUnits).toFixed(2);
-
+    console.log(result);
     res.status(StatusCodes.OK).json({
       result,
       cgpa,
@@ -184,7 +184,6 @@ const getResults = async (req, res) => {
 
     // calculate CGPA
     const cgpa = CGPA(cgpaPoints, cgpaUnits).toFixed(2);
-
     res.status(StatusCodes.OK).json({
       result,
       cgpa,

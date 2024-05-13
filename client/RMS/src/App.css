@@ -110,5 +110,5 @@ aside li:hover{
     margin-right: 10px;
 }
 .result-grid{
-    grid-template-columns: .5fr 1fr .5fr .8fr .5fr;
+    grid-template-columns: .5fr 1fr .5fr .8fr .5fr .5fr;
 }

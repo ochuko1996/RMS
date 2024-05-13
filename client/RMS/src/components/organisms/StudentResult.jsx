@@ -1,6 +1,8 @@
 import SingleResult from "../molecules/singleResult";
+import PropTypes from "prop-types";
 
 function StudentResult({ loadingResult, semesterData, singleResult }) {
+  console.log(singleResult);
   return (
     <section>
       {loadingResult ? (
@@ -23,9 +25,8 @@ function StudentResult({ loadingResult, semesterData, singleResult }) {
             const GPA = isNaN(semesterDataForCurrentSemester[gpaName])
               ? "Not Available"
               : semesterDataForCurrentSemester[gpaName];
-
             return (
-              semesterDataArray && (
+              semesterDataArray.length > 0 && (
                 <section
                   key={semester}
                   className="border border-[--blue-gray-2] p-2 mb-2"
@@ -40,10 +41,16 @@ function StudentResult({ loadingResult, semesterData, singleResult }) {
               )
             );
           })}
-          {singleResult?.cgpa && (
-            <h1 className="text-2xl mt-5 font-bold">
-              Cumulative Grade Point Average : {singleResult.cgpa || "-"}{" "}
-            </h1>
+          {singleResult?.grade && (
+            <>
+              <h1 className="text-2xl mt-5 font-bold">
+                Cumulative Grade Point Average :{" "}
+                {singleResult.grade.cgpa || "-"}{" "}
+              </h1>
+              <h1 className="text-3xl mt-5 font-bold text-center">
+                {singleResult?.grade?.grade}
+              </h1>
+            </>
           )}
         </>
       ) : (
@@ -55,4 +62,10 @@ function StudentResult({ loadingResult, semesterData, singleResult }) {
   );
 }
 
+StudentResult.propTypes = {
+  loadingResult: PropTypes.bool.isRequired,
+  singleResult: PropTypes.array.isRequired,
+  semesterData: PropTypes.array.isRequired,
+  hasOwnProperty: PropTypes.object.isRequired,
+};
 export default StudentResult;

@@ -1,7 +1,7 @@
 import React from "react";
 
 function SingleResult({ data }) {
-  const { total, registeredCourse, point } = data;
+  const { total, registeredCourse, point, gradeLetter } = data;
   // console.log(registeredCourse);
   const { name, code, unit } = registeredCourse?.course || "course";
   return (
@@ -9,8 +9,9 @@ function SingleResult({ data }) {
       <div className="">{code}</div>
       <div className="">{name}</div>
       <div className="">{total}</div>
-      <div className="">{point}</div>
       <div className="">{unit}</div>
+      <div className="">{point}</div>
+      <div className="">{gradeLetter}</div>
     </div>
   );
 }
